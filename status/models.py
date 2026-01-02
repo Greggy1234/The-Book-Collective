@@ -12,7 +12,7 @@ class Status(models.Model):
     """
     STATUS_OPTION = ((1, "On Wishlist"),
                      (2, "Currently Reading"),
-                     (3, "Read")
+                     (3, "Read"),
                      (4, "Did Not Finished"))
     object = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="book_status"

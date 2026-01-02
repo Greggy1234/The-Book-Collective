@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from book.models import Book
 
 
@@ -30,18 +31,17 @@ class Rating(models.Model):
     Stores the numerical rating of a book by a user,
     related to :model:`book.Book` and :model:`auth.User`
     """
-    RATING_OPTIONS = ((0, 1), (1, 1.25), (2, 1.5), (3, 1.75),
-                      (4, 2), (5, 2.25), (6, 2.5), (7, 2.75),
-                      (8, 3), (9, 3.25), (10, 3.5), (11, 3.75),
-                      (12, 4), (13, 4.25), (14, 4.5), (15, 4.75), (16, 5))
-
     object = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="book_rating"
     )
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="rating_author"
     )
-    rating = models.IntegerField(choices=RATING_OPTIONS, default=16)
+    rating = models.DecimalField(max_digits=3, decimal_places=2,
+                                 validators=[
+                                     MinValueValidator(1.00),
+                                     MaxValueValidator(5.00)
+                                 ])
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -60,7 +60,7 @@ class Like(models.Model):
         Review, on_delete=models.CASCADE, related_name="review_like"
     )
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="rating_author"
+        User, on_delete=models.CASCADE, related_name="like_author"
     )
     created_on = models.DateTimeField(auto_now_add=True)
 

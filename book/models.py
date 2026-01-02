@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.core.validators import MinValueValidator
 
 
@@ -53,6 +54,14 @@ class Book(models.Model):
 
     class Meta:
         ordering = ["title"]
+
+    def avg_rating(self):
+        average = self.book_rating.aggregate(Avg('rating'))['rating__avg']
+        average_round = round(average, 2)
+        if not average:
+            return None
+        else:
+            return average_round
 
     def __str__(self):
         return f'{self.title} by {self.author}, released in {self.first_published}'
