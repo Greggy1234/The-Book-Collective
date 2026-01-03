@@ -45,7 +45,6 @@ class Book(models.Model):
                                         validators=[MinValueValidator(1)])
     author = models.ManyToManyField(Author)
     genres = models.ManyToManyField(Genre)
-#    #avg_rating
     language = models.ForeignKey(Language, default=1,
                                  on_delete=models.SET_DEFAULT)
     synopsis = models.TextField(blank=True)
