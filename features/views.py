@@ -1,21 +1,27 @@
 from django.shortcuts import render
 from django.contrib import messages
-from .models import FutureFeatures
+from .models import FutureFeature
 from .forms import FeaturesForm
 
 
 # Create your views here.
 def features_page(request):
     """
-    Returns all objects in the :model:`FutureFeatures`
+    Returns all objects in the :model:`FutureFeature`
     as long as they are not classed as 'not on radar'
     Shows the future features sugestion form
-    
+
     **Context**
-    
+    ``features``
+        All instances in the features model where the status is
+        not 'not on radar'
+    ``feature_form``
+        An instance of :form:`feature.FeaturesForm`
+
     **Template**
+    :template:`features/features.html`
     """
-    features = FutureFeatures.objects.exclude(status=4).order_by('-updated_on')
+    features = FutureFeature.objects.exclude(status=4).order_by('-updated_on')
 
     if request.method == "POST":
         feature_form = FeaturesForm(data=request.POST)

@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class FutureFeatures(models.Model):
+class FutureFeature(models.Model):
     """
     Stores information for the upcoming changes to the app
     """
@@ -12,7 +12,7 @@ class FutureFeatures(models.Model):
                      (4, "Not on radar"),
                      )
     feature = models.TextField(unique=True)
-    status = models.CharField(choices=STATUS_OPTION, deafult=4)
+    status = models.CharField(choices=STATUS_OPTION, default=4)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

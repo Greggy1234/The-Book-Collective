@@ -1,8 +1,8 @@
 from django import forms
-from .models import FutureFeatures
+from .models import FutureFeaturesForm
 
 
 class FeaturesForm(forms.ModelForm):
     class Meta:
-        model = FutureFeatures
+        model = FutureFeaturesForm
         fields = ("name", "message",)
