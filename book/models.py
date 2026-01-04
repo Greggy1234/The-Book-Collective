@@ -51,7 +51,7 @@ class Book(models.Model):
     synopsis = models.TextField(blank=True)
 #    #front_cover
     created_on = models.DateTimeField(auto_now_add=True)
-    slug = AutoSlugField(populate_from='title', unique=True)
+    slug = AutoSlugField(populate_from='title')
 
     class Meta:
         ordering = ["title"]

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django_extensions.db.fields import AutoSlugField
 from book.models import Book
 
 
@@ -18,14 +19,13 @@ class Review(models.Model):
     )
     review = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    slug = AutoSlugField(populate_from=['author__username', 'object__title'])
 
     class Meta:
         ordering = ["-created_on"]
 
-
     def number_likes(self):
         return self.review_like.count()
-
 
     def __str__(self):
         return f'Review of {self.object} by {self.author}'

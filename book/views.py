@@ -22,7 +22,7 @@ def book_detail(request, slug):
 
     :param request: Description
     """
-    book = get_object_or_404(Book.object.all(), slug=slug)
+    book = get_object_or_404(Book, slug=slug)
     review = book.book_review.all().order_by("-created_on")
 
     return render(
