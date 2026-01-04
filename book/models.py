@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Avg
 from django.core.validators import MinValueValidator
+from django_extensions.db.fields import AutoSlugField
 
 
 # Create your models here.
@@ -50,17 +51,17 @@ class Book(models.Model):
     synopsis = models.TextField(blank=True)
 #    #front_cover
     created_on = models.DateTimeField(auto_now_add=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
 
     class Meta:
         ordering = ["title"]
 
     def avg_rating(self):
         average = self.book_rating.aggregate(Avg('rating'))['rating__avg']
-        average_round = round(average, 2)
         if not average:
             return None
-        else:
-            return average_round
+        average_round = round(average, 2)
+        return average_round
 
     def __str__(self):
         return f'{self.title} by {self.author}, released in {self.first_published}'

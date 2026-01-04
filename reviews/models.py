@@ -22,6 +22,11 @@ class Review(models.Model):
     class Meta:
         ordering = ["-created_on"]
 
+
+    def number_likes(self):
+        return self.review_like.count()
+
+
     def __str__(self):
         return f'Review of {self.object} by {self.author}'
 
