@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Review, Rating
-from book.models import Book
 from status.models import Status
 
 

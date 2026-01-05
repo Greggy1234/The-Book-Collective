@@ -34,9 +34,10 @@ class Status(models.Model):
         if self.status == 2 and not self.started_on:
             self.started_on = timezone.now()
 
-        if self.status == 3 and not self.finished_on:
-            self.finished_on = timezone.now()
-
         if self.status == 3 and not self.finished_on and not self.started_on:
             self.started_on = timezone.now()
             self.finished_on = timezone.now()
+        elif self.status == 3 and not self.finished_on:
+            self.finished_on = timezone.now()
+
+        super().save(*args, **kwargs)

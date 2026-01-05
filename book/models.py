@@ -1,7 +1,18 @@
 from django.db import models
 from django.db.models import Avg
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django_extensions.db.fields import AutoSlugField
+import datetime
+
+
+# Taken from https://stackoverflow.com/questions/49051017/year-field-in-django
+def current_year():
+    return datetime.date.today().year
+
+
+# Taken from https://stackoverflow.com/questions/49051017/year-field-in-django
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
 
 
 # Create your models here.
@@ -41,7 +52,9 @@ class Book(models.Model):
     :model:`book.Author` and :model:`book.Language`
     """
     title = models.CharField(max_length=250)
-    first_published = models.DateField()
+    # Taken from https://stackoverflow.com/questions/49051017/year-field-in-django
+    published = models.PositiveIntegerField(
+        default=current_year(), validators=[MinValueValidator(1000), max_value_current_year])
     pages = models.PositiveIntegerField(verbose_name="Number of Pages",
                                         validators=[MinValueValidator(1)])
     author = models.ManyToManyField(Author)
