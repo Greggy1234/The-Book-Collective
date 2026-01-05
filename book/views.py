@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
+from django.contrib import messages
 from .models import Book
+from .forms import AddBook
 
 
 # Create your views here.
@@ -31,5 +33,28 @@ def book_detail(request, slug):
         {
             "book": book,
             "review": review,
+        }
+    )
+
+
+def add_book(request):
+    """
+    """
+    if request.method == "POST":
+        add_book_form = AddBook(data=request.POST)
+        if add_book_form.is_valid():
+            book = add_book_form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} has been saved. Thank you for adding more books to the site!'
+            )
+
+    add_book_form = AddBook()
+
+    return render(
+        request,
+        "books/add_book.html",
+        {
+            "add_book_form": add_book_form
         }
     )
