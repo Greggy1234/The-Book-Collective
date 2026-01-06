@@ -11,4 +11,4 @@ class AddAuthor(forms.ModelForm):
 class AddBook(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ("title", "pages", "synopsis", "published", "author", "genre", "language")
+        fields = ("title", "pages", "synopsis", "published", "author", "genres", "language")

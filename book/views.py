@@ -30,6 +30,9 @@ def book_detail(request, slug):
     book = get_object_or_404(Book, slug=slug)
     review = book.book_review.all().order_by("-created_on")
     review_count = book.book_review.count()
+    user_review = book.book_review.filter(object=book, author=request.user)
+    user_rating = book.book_rating.filter(object=book, author=request.user)
+    user_status = book.book_status.filter(object=book, author=request.user)
 
     return render(
         request,
@@ -38,6 +41,9 @@ def book_detail(request, slug):
             "book": book,
             "review": review,
             "review_count": review_count,
+            "user_review": user_review,
+            "user_rating": user_rating,
+            "user_status": user_status,
         }
     )
 
@@ -156,6 +162,12 @@ def edit_rating(request, slug):
 
 
 def delete_review(request, slug):
+    """
+    Docstring for delete_review
+    
+    :param request: Description
+    :param slug: Description
+    """
     book = get_object_or_404(Book, slug=slug)
     review = get_object_or_404(Review, object=book, author=request.user)
     if review.author == request.user:
@@ -166,6 +178,12 @@ def delete_review(request, slug):
 
 
 def delete_rating(request, slug):
+    """
+    Docstring for delete_rating
+    
+    :param request: Description
+    :param slug: Description
+    """
     book = get_object_or_404(Book, slug=slug)
     rating = get_object_or_404(Rating, object=book, author=request.user)
     if rating.author == request.user:
