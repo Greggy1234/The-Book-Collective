@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views.generic import ListView
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 from .models import Book
 from .forms import AddBook
 from reviews.models import Review, Rating
@@ -9,7 +10,7 @@ from reviews.forms import ReviewForm, RatingForm
 
 
 # Create your views here.
-class book_overview(ListView):
+class BookOverview(ListView):
     """
     Docstring for book_overview
 
@@ -19,6 +20,22 @@ class book_overview(ListView):
     template_name = "book/books.html"
     context_object_name = "books"
     paginate_by = 10
+
+
+class BookSearch(ListView):
+    """
+    """
+    model = Book
+    template_name = "book/search.html"
+    context_object_name = "book_search"
+    paginate_by = 10
+
+# taken from https://testdriven.io/blog/django-search/
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        return Book.objects.filter(
+            Q(title__icontains=query) | Q(author__author__icontains=query)
+        )
 
 
 def book_detail(request, slug):
@@ -150,7 +167,7 @@ def edit_rating(request, slug):
         book = get_object_or_404(Book, slug=slug)
         rating = get_object_or_404(Rating, object=book, author=request.user)
         rating_form = RatingForm(data=request.POST, instance=rating)
-        if rating_form.is_valid() and review.author == request.user:
+        if rating_form.is_valid() and rating.author == request.user:
             rating = rating_form.save(commit=False)
             rating.object = book
             rating.save()
