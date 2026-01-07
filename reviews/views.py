@@ -36,7 +36,7 @@ def all_reviews(request):
 
     return render(
         request,
-        "review/index.html",
+        "review/all-reviews.html",
         {
             "review": review,
             "rating": rating,
@@ -56,7 +56,7 @@ def review_detail(request, slug):
 
     return render(
         request,
-        "review/review_detail.html",
+        "review/review-detail.html",
         {
             "review": review,
             "rating": rating
