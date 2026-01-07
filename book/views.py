@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 from .models import Book
-from .forms import AddBook
+from .forms import AddBook, AddAuthor
 from reviews.models import Review, Rating
 from reviews.forms import ReviewForm, RatingForm
 
@@ -19,7 +19,7 @@ class BookOverview(ListView):
     model = Book
     template_name = "book/books.html"
     context_object_name = "books"
-    paginate_by = 10
+    paginate_by = 12
 
 
 class BookSearch(ListView):
@@ -28,7 +28,7 @@ class BookSearch(ListView):
     model = Book
     template_name = "book/search.html"
     context_object_name = "book_search"
-    paginate_by = 10
+    paginate_by = 12
 
 # taken from https://testdriven.io/blog/django-search/
     def get_queryset(self):
@@ -53,7 +53,7 @@ def book_detail(request, slug):
 
     return render(
         request,
-        "book/books_detail.html",
+        "book/books-detail.html",
         {
             "book": book,
             "review": review,
@@ -88,10 +88,28 @@ def add_book(request):
     )
 
 
+def add_author(request):
+    """
+    Docstring for add_author
+
+    :param request: Description
+    """
+    if request.method == "POST":
+        add_author_form = AddAuthor(data=request.POST)
+        if add_author_form.is_valid():
+            author = add_author_form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{author.author} has been saved!'
+            )
+
+    return HttpResponseRedirect(reverse('add_book'))
+
+
 def add_review(request, slug):
     """
     Docstring for add_review
-    
+
     :param request: Description
     :param slug: Description
     """

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- books.html content starts here -->
+<div class="py-3 text-center">
+    <h1>Books</h1>
+    <h2>Find your book, track your reading, then write a review!</h2>
+    <p>If you don't find your book in the list below, you can add a new book here:</p>
+    <a class="btn btn-primary" aria-label="Link to the Add Book page" href="{% url 'add_book' %}">Add New Book</a>
+</div>
+<!-- List of books with pagination -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!-- {% for books in book %} -->
+        <div class="col-6 col-sm-3 col-md-2">
+            <p>Nothing to see here yet</p>
+        </div>
+        <!-- endfor -->
+    </div>
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+<hr>
+<div class="text-center">
+    <h3>Want to read some reviews?</h3>
+    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All Reviews</a>
+</div>
+
+<!-- books.html content ends here -->
+{% endblock %}
