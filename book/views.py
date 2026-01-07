@@ -58,7 +58,7 @@ def book_detail(request, slug):
 
     return render(
         request,
-        "book/books-detail.html",
+        "book/book-detail.html",
         {
             "book": book,
             "review": review,
