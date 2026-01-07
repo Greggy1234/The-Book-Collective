@@ -86,7 +86,7 @@ def add_book(request):
 
     return render(
         request,
-        "book/add_book.html",
+        "book/add-book.html",
         {
             "add_book_form": add_book_form
         }

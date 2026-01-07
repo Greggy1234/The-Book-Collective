@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 from .models import Review, Rating
 from status.models import Status
 
@@ -23,7 +24,7 @@ def recent_reviews(request):
             "book_status": book_status,
         }
     )
-
+ 
 
 def all_reviews(request):
     """
@@ -34,11 +35,15 @@ def all_reviews(request):
     review = Review.objects.select_related("object", "author").order_by("-created_on")
     rating = Rating.objects.select_related("object", "author").order_by("-created_on")
 
+    review_paginator = Paginator(review, 20)
+    review_page_number = request.Get.get("page")
+    review_page_obj = review_paginator.get_page(review_page_number)
+
     return render(
         request,
         "review/all-reviews.html",
         {
-            "review": review,
+            "review": review_page_obj,
             "rating": rating,
         }
     )
