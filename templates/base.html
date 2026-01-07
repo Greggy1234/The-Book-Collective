@@ -72,12 +72,10 @@
                     {% endif %}
                 </ul>
             </div>
-            {% if user.is_authenticated %}
             <form action="{% url 'book_search'}" method="GET">
                 <input class="form-control" type="search" name="q" placeholder="Search for books by title or author">
                 <button type="submit">Search</button>
             </form>
-            {% endif %}
         </div>
     </nav>
     <!-- displaying Django messages -->

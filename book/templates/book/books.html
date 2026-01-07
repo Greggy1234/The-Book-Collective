@@ -12,7 +12,7 @@
 <!-- List of books with pagination -->
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <!-- {% for books in book %} -->
+        <!-- {% for book in books %} -->
         <div class="col-6 col-sm-3 col-md-2">
             <p>Nothing to see here yet</p>
         </div>
@@ -25,6 +25,7 @@
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
             {% endif %}
+            <p>Page {{ page_obj.num }} of {{ page_obj.num_pages }} </p>
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}"> NEXT &raquo;</a></li>
             {% endif %}
