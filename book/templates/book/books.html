@@ -9,14 +9,14 @@
     <p>If you don't find your book in the list below, you can add a new book here:</p>
     <a class="btn btn-primary" aria-label="Link to the Add Book page" href="{% url 'add_book' %}">Add New Book</a>
 </div>
-<!-- List of books with pagination -->
+<!-- List of books with 12 per page -->
 <div class="container">
     <div class="row justify-content-center">
         <!-- {% for book in books %} -->
         <div class="col-6 col-sm-3 col-md-2">
             <p>Nothing to see here yet</p>
         </div>
-        <!-- endfor -->
+        <!-- {% endfor %} -->
     </div>
 
     {% if is_paginated %}

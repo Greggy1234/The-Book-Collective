@@ -45,6 +45,10 @@
                             href="{% url 'homepage' %}">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if request.path == book_url %}active" aria-current="page{% endif %}"
+                            href="{% url 'book_overview' %}">Books</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {% if request.path == review_url %}active" aria-current="page{% endif %}"
                             href="{% url 'all_reviews' %}">Reviews</a>
                     </li>

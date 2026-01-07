@@ -2,6 +2,41 @@
 {% load static %}
 
 {% block content %}
+<!-- all-reviews.html content starts here -->
+<div class="py-3 text-center">
+    <h1>Reviews</h1>
+    <h2>See all the reviews from other user who look to read</h2>
+</div>
+<!-- All reviews, with 20 per page-->
+<div class="container">
+    <div class="row">
+        <!-- {% for review in review %} -->
+        <div class="col-12 py-2">
+            <!-- {% for rating in review.object.book_rating.all %}-->
+             <p>Nothing to see here</p>
+            <!-- {% endfor %}-->
+        </div>
+        <!-- {% endfor %} -->
+    </div>
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
+            {% endif %}
+            <p>Page {{ page_obj.num }} of {{ page_obj.num_pages }} </p>
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+<hr>
+<div class="text-center">
+    <h3>Choose your next book</h3>
+    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All Reviews</a>
+</div>
 
-
+<!-- all-reviews.html content ends here -->
 {% endblock %}
