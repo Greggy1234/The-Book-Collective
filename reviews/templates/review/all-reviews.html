@@ -12,6 +12,7 @@
     <div class="row">
         <!-- {% for review in review %} -->
         <div class="col-12 py-2">
+            <!-- {% url 'review_detail' slug=review.slug %} -->
             <!-- {% for rating in review.object.book_rating.all %}-->
              <p>Nothing to see here</p>
             <!-- {% endfor %}-->
@@ -35,7 +36,7 @@
 <hr>
 <div class="text-center">
     <h3>Choose your next book</h3>
-    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All Reviews</a>
+    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All Books</a>
 </div>
 
 <!-- all-reviews.html content ends here -->
