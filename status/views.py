@@ -72,12 +72,17 @@ def books_wishlist(request, username):
     user = get_object_or_404(User, username=username)
     book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
     books_wish = book_status.filter(status=1)
+    
+    books_wish_paginator = Paginator(books_wish, 12)
+    bbooks_wish_page_number = request.Get.get("page")
+    books_wish_page_obj = books_wish_paginator.get_page(bbooks_wish_page_number)
 
     return render(
         request,
         "status/wishlist.html",
         {
             "books_wish": books_wish,
+            "books_wish_page_obj": books_wish_page_obj,
             "user": user,
         }
     )
