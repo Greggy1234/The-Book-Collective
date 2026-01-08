@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Avg
+from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from .models import Status
 from reviews.models import Rating
@@ -30,7 +31,7 @@ def profile_page(request, username):
             "book_status_wishlist": book_status_wishlist,
             "book_status_reading": book_status_reading,
             "book_status_read": book_status_read,
-            "book_read_count": book_status_dnf,
+            "book_read_dnf": book_status_dnf,
             "user": user,
             "avg_rating": user_avg_rating,
         }
@@ -44,13 +45,19 @@ def books_read(request, username):
     :param request: Description
     """
     user = get_object_or_404(User, username=username)
-    books_read = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
+    book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
+    books_read = book_status.filter(status=3)
+
+    books_read_paginator = Paginator(books_read, 12)
+    books_read_page_number = request.Get.get("page")
+    books_read_page_obj = books_read_paginator.get_page(books_read_page_number)
 
     return render(
         request,
         "status/book-read.html",
         {
             "books_read": books_read,
+            "books_read_page_obj": books_read_page_obj,
             "user": user,
         }
     )
@@ -63,7 +70,8 @@ def books_wishlist(request, username):
     :param request: Description
     """
     user = get_object_or_404(User, username=username)
-    books_wish = Status.objects.select_related("object", "author").filter(author=user, status=1).order_by("-created_on")
+    book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
+    books_wish = book_status.filter(status=1)
 
     return render(
         request,
