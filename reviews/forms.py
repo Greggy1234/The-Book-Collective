@@ -11,7 +11,7 @@ class RatingForm(forms.ModelForm):
         (5.0, '5')
     )
 
-    rating_field = forms.ChoiceField(choices=CHOICES, widget=forms.Select)
+    rating = forms.ChoiceField(choices=CHOICES, widget=forms.Select)
 
     class Meta:
         model = Rating
