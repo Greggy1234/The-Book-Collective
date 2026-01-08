@@ -30,7 +30,7 @@
 
 <body class="d-flex flex-column h-100">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'homepage' %}">The Book Collective</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -54,7 +54,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == profile_url %}active" aria-current="page{% endif %}"
-                            href="{% url 'profile-page' username=user.username %}">Profile</a>
+                            href="{% url 'profile_page' username=user.username %}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == features_url %}active" aria-current="page{% endif %}"
@@ -76,7 +76,7 @@
                     {% endif %}
                 </ul>
             </div>
-            <form action="{% url 'book_search'}" method="GET">
+            <form action="{% url 'book_search' %}" method="GET" class="flex-row">
                 <input class="form-control" type="search" name="q" placeholder="Search for books by title or author">
                 <button type="submit">Search</button>
             </form>
@@ -103,9 +103,9 @@
         {% endblock content %}
     </main>
 
-    <footer>
-        <P class="m-0 text-center">Made by Greg Reid</P>
-        <p class="m-0 text-center">Find us online!</p>
+    <footer class="text-center">
+        <P class="m-0">Made by Greg Reid</P>
+        <p class="m-0">Find us online!</p>
         <a href="https://www.instagram.com/" target="_blank"
             aria-label="Instagram logo linked to the Instagram homepage" rel="noopener"><i
                 class="fa-brands fa-instagram icons"></i></a>
