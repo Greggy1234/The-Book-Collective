@@ -1,9 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.db.models import Avg
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from .models import Status
 from reviews.models import Rating
+from book.models import Book
 
 
 # Create your views here.
@@ -72,10 +75,10 @@ def books_wishlist(request, username):
     user = get_object_or_404(User, username=username)
     book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
     books_wish = book_status.filter(status=1)
-    
+
     books_wish_paginator = Paginator(books_wish, 12)
-    bbooks_wish_page_number = request.Get.get("page")
-    books_wish_page_obj = books_wish_paginator.get_page(bbooks_wish_page_number)
+    books_wish_page_number = request.Get.get("page")
+    books_wish_page_obj = books_wish_paginator.get_page(books_wish_page_number)
 
     return render(
         request,
@@ -86,3 +89,138 @@ def books_wishlist(request, username):
             "user": user,
         }
     )
+
+
+def add_to_wishlist(request, slug):
+    """
+    Docstring for add_to_wishlist
+
+    :param request: Description
+    :param slug: Description
+    """
+    book = get_object_or_404(Book, slug=slug)
+    if request.method == "POST":
+        status, created = Status.get_or_create(
+            object=book,
+            author=request.User,
+            defaults={'status': 1}
+        )
+        if created:
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to wishlist'
+            )
+        else:
+            status.status = 1
+            status.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to wishlist'
+            )    
+
+    return HttpResponseRedirect(reverse('book_detail', args=[slug]))
+
+
+def add_to_currently_reading(request, slug):
+    """
+    Docstring for add_to_currently_reading
+    
+    :param request: Description
+    :param slug: Description
+    """
+    book = get_object_or_404(Book, slug=slug)
+    if request.method == "POST":
+        status, created = Status.get_or_create(
+            object=book,
+            author=request.User,
+            defaults={'status': 2}
+        )
+        if created:
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to currently reading'
+            )
+        else:
+            status.status = 2
+            status.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to currently reading'
+            )    
+
+    return HttpResponseRedirect(reverse('book_detail', args=[slug]))
+
+
+def add_to_read(request, slug):
+    """
+    Docstring for add_to_read
+    
+    :param request: Description
+    :param slug: Description
+    """
+    book = get_object_or_404(Book, slug=slug)
+    if request.method == "POST":
+        status, created = Status.get_or_create(
+            object=book,
+            author=request.User,
+            defaults={'status': 3}
+        )
+        if created:
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to read books'
+            )
+        else:
+            status.status = 3
+            status.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to read books'
+            )    
+
+    return HttpResponseRedirect(reverse('book_detail', args=[slug]))
+
+
+def add_to_dnf(request, slug):
+    """
+    Docstring for add_to_dnf
+    
+    :param request: Description
+    :param slug: Description
+    """
+    book = get_object_or_404(Book, slug=slug)
+    if request.method == "POST":
+        status, created = Status.get_or_create(
+            object=book,
+            author=request.User,
+            defaults={'status': 4}
+        )
+        if created:
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to DNF pile'
+            )
+        else:
+            status.status = 4
+            status.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} added to DNF pile'
+            )    
+
+    return HttpResponseRedirect(reverse('book_detail', args=[slug]))
+
+
+def delete_status(request, slug):
+    """
+    Docstring for delete_status
+    
+    :param request: Description
+    """
+    book = get_object_or_404(Book, slug=slug)
+    status = get_object_or_404(Status, object=book, author=request.user)
+    if request == "POST":
+        if status.author == request.user:
+            status.delete()
+    
+    return HttpResponseRedirect(reverse('book_detail', args=[slug]))

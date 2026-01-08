@@ -6,7 +6,7 @@
 <!-- add-book.hmtl code starts here -->
 <div class="py-3 text-center">
     <h1>Add a book</h1>
-    <h2>Here you can add a book so you can keep track</h2>
+    <h2>Here, you can add a book so you can keep track</h2>
 </div>
 <!-- Add book form goes here -->
 <div class="container">
@@ -14,12 +14,11 @@
         <div class="col-8 justify-content-center">
             <form id="add_book_form" method="POST">
                 {{ add_book_form | crispy }}
-                {{ csrf_token }}
+                {% csrf_token %}
                 <button type="submit">Submit</button>
             </form>
         </div>
     </div>
 </div>
-
 <!-- add-book.hmtl code ends here -->
 {% endblock content %}

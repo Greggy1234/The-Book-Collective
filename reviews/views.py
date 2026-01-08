@@ -36,7 +36,7 @@ def all_reviews(request):
     rating = Rating.objects.select_related("object", "author").order_by("-created_on")
 
     review_paginator = Paginator(review, 20)
-    review_page_number = request.Get.get("page")
+    review_page_number = request.GET.get("page")
     review_page_obj = review_paginator.get_page(review_page_number)
 
     return render(

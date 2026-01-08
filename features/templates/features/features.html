@@ -42,7 +42,7 @@
             <h3 class="text-center">Submit any features you would like to see</h3>
             <form id="feature_form" method="POST">
                 {{ feature_form | crispy }}
-                {{ csrf_token }}
+                {% csrf_token %}
                 <button type="submit">Submit</button>
             </form>
         </div>

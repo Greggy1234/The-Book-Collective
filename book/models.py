@@ -24,7 +24,7 @@ class Genre(models.Model):
     genre = models.CharField(max_length=75, unique=True)
 
     def __str__(self):
-        return f'This genre is {self.genre}'
+        return f'{self.genre}'
 
 
 class Author(models.Model):
@@ -34,7 +34,7 @@ class Author(models.Model):
     author = models.CharField(max_length=150, unique=True)
 
     def __str__(self):
-        return f'This author is {self.author}'
+        return f'{self.author}'
 
 
 class Language(models.Model):
@@ -44,7 +44,7 @@ class Language(models.Model):
     lang = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return f'This language is {self.lang}'
+        return f'{self.lang}'
 
 
 class Book(models.Model):

@@ -52,9 +52,9 @@ def book_detail(request, slug):
     book = get_object_or_404(Book, slug=slug)
     review = book.book_review.all().order_by("-created_on")
     review_count = book.book_review.count()
-    user_review = book.book_review.filter(object=book, author=request.user)
-    user_rating = book.book_rating.filter(object=book, author=request.user)
-    user_status = book.book_status.filter(object=book, author=request.user)
+    user_review = book.book_review.filter(object=book, author=request.user).first()
+    user_rating = book.book_rating.filter(object=book, author=request.user).first()
+    user_status = book.book_status.filter(object=book, author=request.user).first()
 
     return render(
         request,
