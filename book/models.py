@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Avg
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django_extensions.db.fields import AutoSlugField
+from cloudinary.models import CloudinaryField
 import datetime
 
 
@@ -62,7 +63,7 @@ class Book(models.Model):
     language = models.ForeignKey(Language, default=1,
                                  on_delete=models.SET_DEFAULT)
     synopsis = models.TextField(blank=True)
-#    #front_cover
+    front_cover = CloudinaryField('image', default='placeholder')
     created_on = models.DateTimeField(auto_now_add=True)
     slug = AutoSlugField(populate_from='title')
 
