@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- profile.hmtl code starts here -->
+<h1>{{ user.username }}'s profile</h1>
+<!-- Stat boxes-->
+<div class="container">
+    <div class="row">
+        <div class="col-6 justify-content-center">
+            <!-- {{ book_read_count }} -->
+        </div>
+        <div class="col-6 justify-content-center">
+            <!-- {{ user_avg_rating }} -->
+        </div>
+    </div>
+</div>
+<!-- Overall summary of books -->
+ <div class="container">
+    <div class="row">
+        <div class="col-12 col-sm 6">
+            <h3>Books Read</h3>
+        </div>
+        <div class="col-12 col-sm 6">
+            <h3>{{ user.username }}'s Wishlist</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm 6 justify-content-center">
+            <h3>Currently Reading</h3>
+        </div>
+        <div class="col-12 col-sm 6 justify-content-center">
+            <h3>DNF's Books</h3>
+        </div>
+    </div>
+ </div>
+<hr>
+<div class="text-center">
+    <h3>Choose your next book or see all the reviews:</h3>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 justify-content-center">
+                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
+                    href="{% url 'book_overview' %}">All Books</a>
+                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
+                    href="{% url 'all_reviews' %}">All Reviews</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- profile.hmtl code ends here -->
+{% endblock content %}
