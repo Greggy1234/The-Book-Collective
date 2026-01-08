@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <!-- features.html content starts here -->
@@ -32,6 +33,18 @@
         <div class="col-12 col-sm-4 justify-content-center">
             <h3>Planning Stage</h3>
             <P>Nothing to see here</P>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-8 justify-content-center">
+            <h3 class="py-3 text-center">Submit any features you would like to see</h3>
+            <form id="feature_form" method="POST">
+                {{ feature_form | crispy }}
+                {{ csrf_token }}
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </div>
 </div>
