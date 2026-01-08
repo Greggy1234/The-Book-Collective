@@ -13,8 +13,8 @@ class AddBook(forms.ModelForm):
         model = Book
         fields = ("author", "title", "pages", "synopsis", "published", "genres", "language")
 
-    def __init__(self, **kwargs):
-        super(AddBook, self).__init__(self, **kwargs)
-        self.fileds["author"].queryset = Author.objects.exclude(id=1)
-        self.fileds["genres"].queryset = Genre.objects.exclude(id=1)
-        self.fileds["language"].queryset = Language.objects.exclude(id=1)
+    def __init__(self, *args, **kwargs):
+        super(AddBook, self).__init__(*args, **kwargs)
+        self.fields["author"].queryset = Author.objects.exclude(id=1)
+        self.fields["genres"].queryset = Genre.objects.exclude(id=1)
+        self.fields["language"].queryset = Language.objects.exclude(id=1)

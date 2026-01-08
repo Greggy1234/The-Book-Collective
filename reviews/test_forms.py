@@ -32,4 +32,4 @@ class TestRatingForm(TestCase):
         form = RatingForm({
             'rating': '2.23'
         })
-        self.assertFalse(form.is_valid(), msg="No review field given in test")
+        self.assertFalse(form.is_valid(), msg="Wrong rating field given in test")
