@@ -14,7 +14,7 @@
         <div class="col-12 py-2">
             <!-- {% url 'review_detail' slug=review.slug %} -->
             <!-- {% for rating in review.object.book_rating %}-->
-             <p>Nothing to see here</p>
+            <p>Nothing to see here</p>
             <!-- {% endfor %}-->
         </div>
         <!-- {% endfor %} -->
@@ -33,10 +33,12 @@
     </nav>
     {% endif %}
 </div>
-<hr>
-<div class="text-center">
-    <h3>Choose your next book</h3>
-    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All Books</a>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
+<div class="text-center pb-4">
+    <h3 class="pb-3">Choose your next book</h3>
+    <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All Books</a>
 </div>
 
 <!-- all-reviews.html content ends here -->

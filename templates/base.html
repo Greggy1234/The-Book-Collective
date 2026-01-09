@@ -32,14 +32,14 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'homepage' %}">The Book Collective</a>
+            <a class="navbar-brand me-2" href="{% url 'homepage' %}">The Book Collective</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == home_url %}active" aria-current="page{% endif %}"
                             href="{% url 'homepage' %}">Home</a>
@@ -75,11 +75,11 @@
                     </li>
                     {% endif %}
                 </ul>
+                <form action="{% url 'book_search' %}" method="GET" class="flex-row ms-auto">
+                    <input class="form-control" type="search" name="q" placeholder="Search for books">
+                    <button type="submit" class="px-4">Search</button>
+                </form>
             </div>
-            <form action="{% url 'book_search' %}" method="GET" class="flex-row">
-                <input class="form-control" type="search" name="q" placeholder="Search for books by title or author">
-                <button type="submit">Search</button>
-            </form>
         </div>
     </nav>
     <!-- displaying Django messages -->
@@ -96,7 +96,6 @@
             </div>
         </div>
     </div>
-
     <main>
         {% block content %}
         <!-- Content Goes here -->
@@ -104,18 +103,29 @@
     </main>
 
     <footer class="text-center">
-        <P class="m-0">Made by Greg Reid</P>
-        <p class="m-0">Find us online!</p>
-        <a href="https://www.instagram.com/" target="_blank"
-            aria-label="Instagram logo linked to the Instagram homepage" rel="noopener"><i
-                class="fa-brands fa-instagram icons"></i></a>
-        <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook logo linked to the Facebook homepage"
-            rel="noopener"><i class="fa-brands fa-facebook icons"></i></a>
-        <a href="https://x.com" target="_blank" aria-label="X logo linked to the X homepage" rel="noopener"><i
-                class="fa-brands fa-x-twitter icons"></i></a>
-        <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn logo linked to the LinekdIn homepage"
-            rel="noopener"><i class="fa-brands fa-threads icons"></i></a>
-
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-4 pt-2 offset-md-4">
+                    <div class="flex-row justify-content-center">
+                        <p class="m-0 pe-1">Find us online:</p>
+                        <a href="https://www.instagram.com/" target="_blank"
+                            aria-label="Instagram logo linked to the Instagram homepage" rel="noopener"><i
+                                class="fa-brands fa-instagram icons"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank"
+                            aria-label="Facebook logo linked to the Facebook homepage" rel="noopener"><i
+                                class="fa-brands fa-facebook icons"></i></a>
+                        <a href="https://x.com" target="_blank" aria-label="X logo linked to the X homepage"
+                            rel="noopener"><i class="fa-brands fa-x-twitter icons"></i></a>
+                        <a href="https://www.linkedin.com/" target="_blank"
+                            aria-label="LinkedIn logo linked to the LinekdIn homepage" rel="noopener"><i
+                                class="fa-brands fa-threads icons"></i></a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 pt-2 text-md-end">
+                    <P class="m-0 copyright">Made by Greg Reid</P>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

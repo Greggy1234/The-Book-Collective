@@ -6,32 +6,53 @@
     --title-font: "Style Script", Serif;
     --text-font: "Crimson Text", Serif;
     /* To be used for h1 and other important highlights */
-    --main-highlight: #442b23;
+    --main-highlight: #4A0E4E;
     --secondary-highlight: #34495E;
     --main-text: #333333;
-    --button: #4A0E4E;
+    --button-links: #C5A059;
 }
 
 /* Button styles */
 
 
-/* General styles */
+.button {
+    border: 2px solid var(--button-links);
+    padding: 6px 8px;
+    border-radius: 0.9rem;
+    text-decoration: none;
+    color: white;
+    background-color: var(--button-links);
+    font-family: var(--title-font);
+    font-size: 1.4rem;
+}
+
+/* Global styles */
 body {
     background-color: #F2F0EF;
+    font-family: var(--text-font);
+    color: var(--main-text);
 }
 
 h1,
-h2,
 h3,
 .navbar-brand {
     font-family: var(--title-font);
     color: var(--main-highlight);
 }
 
-p,
-.nav-item {
-    font-family: var(--text-font);
-    color: var(--main-text);
+h2 {
+    color: var(--main-highlight);
+}
+
+p {
+    font-size: 1.3rem;
+}
+
+hr {
+    width: 60%;
+    opacity: 1;
+    border: none;
+    border-top: 1px dotted var(--main-highlight);
 }
 
 .bold {
@@ -45,5 +66,43 @@ p,
 
 /* Navbar styles */
 .navbar {
-    border-bottom:2px solid var(--secondary-highlight) ;
+    border-bottom: 2px solid var(--secondary-highlight);
+}
+
+nav form {
+    gap: 10px;
+}
+
+
+
+
+
+/* Footer styles */
+footer {
+    border-top: 2px solid var(--secondary-highlight);
+}
+
+footer a {
+    color: var(--button-links);
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.copyright {
+    font-size: 1rem;
+}
+
+.icons {
+    font-size: 1.3rem;
+    padding-right: .3rem;
+}
+
+/* Media queries */
+/* Small sized screens (mobiles up, max width 576px) */
+@media screen and (min-width: 576px) {
+    /* Homepage styles */
+    .right-border-no-mobile {
+        border-right: 1px dotted var(--secondary-highlight);;
+    }
 }
