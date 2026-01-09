@@ -11,7 +11,6 @@ def current_year():
     return datetime.date.today().year
 
 
-# Taken from https://stackoverflow.com/questions/49051017/year-field-in-django
 def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)
 
@@ -19,7 +18,7 @@ def max_value_current_year(value):
 # Create your models here.
 class Genre(models.Model):
     """
-    Stores the list of genres available for the Book class
+    Stores the list of genres available for the Book model
     """
     genre = models.CharField(max_length=75, unique=True)
 
@@ -29,7 +28,7 @@ class Genre(models.Model):
 
 class Author(models.Model):
     """
-    Stores the list of authors available for the Book class
+    Stores the list of authors available for the Book model
     """
     author = models.CharField(max_length=150, unique=True)
 
@@ -39,7 +38,7 @@ class Author(models.Model):
 
 class Language(models.Model):
     """
-    Stores the list of languages available for the Book class
+    Stores the list of languages available for the Book model
     """
     lang = models.CharField(max_length=50, unique=True)
 

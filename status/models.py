@@ -24,6 +24,7 @@ class Status(models.Model):
     started_on = models.DateTimeField(blank=True, null=True)
     finished_on = models.DateTimeField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [

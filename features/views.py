@@ -7,8 +7,8 @@ from .forms import FeaturesForm
 # Create your views here.
 def features_page(request):
     """
-    Returns all objects in the :model:`FutureFeature`
-    as long as they are not classed as 'not on radar'
+    Returns all objects in the :model:`features.FutureFeature`
+    as long as they are not classed as 'not on radar'.
     Shows the future features sugestion form
 
     **Context**

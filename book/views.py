@@ -12,9 +12,17 @@ from reviews.forms import ReviewForm, RatingForm
 # Create your views here.
 class BookOverview(ListView):
     """
-    Docstring for book_overview
+    Returns all objects in :model:`book.Book`, paginated so
+    only 12 books max appear per page
 
-    :param request: Description
+    **Context**
+    ``books``
+        All published instances of :model:`book.Book`
+    ``paginate_by``
+        Number of posts per page.
+
+    **Template**
+    :template:`book/books.html`
     """
     model = Book
     template_name = "book/books.html"
@@ -24,6 +32,19 @@ class BookOverview(ListView):
 
 class BookSearch(ListView):
     """
+    Returns a list of all objects from :model:`book.Book`
+    where the query matches the either the author or book title
+    paginated so only 12 books max appear per page
+
+    **Context**
+    ``book_search``
+        All published instances of :model:`book.Book` that match
+        the query
+    ``paginate_by``
+        Number of posts per page.
+
+    **Template**
+    :template:`book/book_search.html`
     """
     model = Book
     template_name = "book/search.html"
@@ -45,12 +66,35 @@ class BookSearch(ListView):
 
 def book_detail(request, slug):
     """
-    Docstring for book_detail
+    Displays an individual :model:`book.Book`
 
-    :param request: Description
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``review``
+        All instances of :model:`reviews.Review` related to book
+    ``rating``
+        All instances of :model:`reviews.Rating` related to book
+    ``review_count``
+        A count of all the reviews on the book
+    ``user_review``
+        The logged in user's specific review if available.
+        Using first as it there can only be one per book per user
+        thus reducing needing to iterate over the queryset in the template
+    ``user_rating``
+        The logged in user's specific rating if available.
+        Using first for the same reason as above
+    ``user_status``
+        The logged in user's specific book status if available.
+        Using first for the same reason as above.
+        Taken from :model:`status.Status`
+
+     **Template**
+        :template:`book/book-detail.html`
     """
     book = get_object_or_404(Book, slug=slug)
     review = book.book_review.all().order_by("-created_on")
+    rating = book.book_rating.all().order_by("-created_on")
     review_count = book.book_review.count()
     user_review = book.book_review.filter(object=book, author=request.user).first()
     user_rating = book.book_rating.filter(object=book, author=request.user).first()
@@ -61,6 +105,7 @@ def book_detail(request, slug):
         "book/book-detail.html",
         {
             "book": book,
+            "rating": rating,
             "review": review,
             "review_count": review_count,
             "user_review": user_review,
@@ -72,6 +117,14 @@ def book_detail(request, slug):
 
 def add_book(request):
     """
+    Returns the add book form
+
+    **Context**
+    ``add_book_form``
+        An instance of :form:`book.AddBook`
+
+     **Template**
+        :template:`book/add-book.html`
     """
     if request.method == "POST":
         add_book_form = AddBook(data=request.POST)
@@ -95,9 +148,8 @@ def add_book(request):
 
 def add_author(request):
     """
-    Docstring for add_author
-
-    :param request: Description
+    Returns the add author form, to be used only on
+    the add book page
     """
     if request.method == "POST":
         add_author_form = AddAuthor(data=request.POST)
@@ -113,10 +165,13 @@ def add_author(request):
 
 def add_review(request, slug):
     """
-    Docstring for add_review
+    Adds a users review to :model:`reviews.Review`
 
-    :param request: Description
-    :param slug: Description
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``review_form``
+        An instance of :form:`reviews.ReviewForm`
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -136,10 +191,13 @@ def add_review(request, slug):
 
 def add_rating(request, slug):
     """
-    Docstring for add_rating
-
-    :param request: Description
-    :param slug: Description
+    Adds a users rating to :model:`reviews.Rating`
+    
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``rating_form``
+        An instance of :form:`reviews.RatingForm`
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -159,10 +217,15 @@ def add_rating(request, slug):
 
 def edit_review(request, slug):
     """
-    Docstring for edit_review
-    
-    :param request: Description
-    :param slug: Description
+    Edit a users review
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``review``
+        A single review related to the book
+    ``review_form``
+        An instance of :form:`reviews.ReviewForm`
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -181,10 +244,15 @@ def edit_review(request, slug):
 
 def edit_rating(request, slug):
     """
-    Docstring for edit_review
+    Edit a users rating
 
-    :param request: Description
-    :param slug: Description
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``rating``
+        A single rating related to the book
+    ``rating_form``
+        An instance of :form:`reviews.RatingForm`
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -203,10 +271,13 @@ def edit_rating(request, slug):
 
 def delete_review(request, slug):
     """
-    Docstring for delete_review
-    
-    :param request: Description
-    :param slug: Description
+    Delete an idividual review
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``review``
+        A single review related to the book
     """
     book = get_object_or_404(Book, slug=slug)
     review = get_object_or_404(Review, object=book, author=request.user)
@@ -219,10 +290,13 @@ def delete_review(request, slug):
 
 def delete_rating(request, slug):
     """
-    Docstring for delete_rating
-    
-    :param request: Description
-    :param slug: Description
+    Delete an idividual rating
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``rating``
+        A single rating related to the book
     """
     book = get_object_or_404(Book, slug=slug)
     rating = get_object_or_404(Rating, object=book, author=request.user)

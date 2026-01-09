@@ -12,16 +12,39 @@ from book.models import Book
 # Create your views here.
 def profile_page(request, username):
     """
-    Docstring for profile_page
+    Renders a user's profile taken from :model:`auth.User` and 
+    showing the status of books from that user from :model:`status.Status`
+    with specifics to only show the most recent 4 book statuses.
+    It includes the amount of books read and the users average rating
+    
+    **Context**
+    ``book_status``
+        All instances of :model:`status.Status` relating to the user
+    ``book_read_count``
+        A count of how many books the user has of status=3
+    ``book_status_wishlist``
+        The 4 most recent books from the user with status=1
+    ``book_status_reading``
+        The 4 most recent books from the user with status=2
+    ``book_status_read``
+        The 4 most recent books from the user with status=3
+    ``book_read_dnf``
+        The 4 most recent books from the user with status=4
+    ``user``
+        An instance of :model:`auth.User`
+    ``avg_rating``
+        The average rating of all books from the user takend from
+        :model:`reviews.Rating`
 
-    :param request: Description
+    **Template**
+        :template:`status/profile.html`
     """
     user = get_object_or_404(User, username=username)
     book_status = Status.objects.select_related("object", "author").filter(author=user).order_by("-created_on")
-    book_status_wishlist = book_status.filter(status=1)[:4]
-    book_status_reading = book_status.filter(status=2)
-    book_status_read = book_status.filter(status=3)[:4]
-    book_status_dnf = book_status.filter(status=4)[:4]
+    book_status_wishlist = book_status.filter(status=1).order_by("-updated_on")[:4]
+    book_status_reading = book_status.filter(status=2).order_by("-updated_on")[:4]
+    book_status_read = book_status.filter(status=3).order_by("-updated_on")[:4]
+    book_status_dnf = book_status.filter(status=4).order_by("-updated_on")[:4]
     book_read_count = Status.objects.filter(author=user, status=3).count()
     user_avg_rating = Rating.objects.filter(author=user).aggregate(Avg('rating'))['rating__avg']
 
@@ -43,9 +66,15 @@ def profile_page(request, username):
 
 def books_read(request, username):
     """
-    Docstring for books_currently_reading
+    Renders all the books a user has read from :model:`status.Status`,
+    paginated to show 12 per page
 
-    :param request: Description
+    **Context**
+    ``books_read_page_obj``
+        All instances of :model:`status.Status` where status=3
+        relating to the user
+    ``user``
+        An instance of :model:`auth.User`
     """
     user = get_object_or_404(User, username=username)
     book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
@@ -59,7 +88,6 @@ def books_read(request, username):
         request,
         "status/book-read.html",
         {
-            "books_read": books_read,
             "books_read_page_obj": books_read_page_obj,
             "user": user,
         }
@@ -68,9 +96,15 @@ def books_read(request, username):
 
 def books_wishlist(request, username):
     """
-    Docstring for books_currently_reading
+    Renders all the books a user has on their wishlist from :model:`status.Status`,
+    paginated to show 12 per page
 
-    :param request: Description
+    **Context**
+    ``books_wish_page_obj``
+        All instances of :model:`status.Status` where status=1
+        relating to the user
+    ``user``
+        An instance of :model:`auth.User`
     """
     user = get_object_or_404(User, username=username)
     book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
@@ -84,7 +118,6 @@ def books_wishlist(request, username):
         request,
         "status/wishlist.html",
         {
-            "books_wish": books_wish,
             "books_wish_page_obj": books_wish_page_obj,
             "user": user,
         }
@@ -93,10 +126,13 @@ def books_wishlist(request, username):
 
 def add_to_wishlist(request, slug):
     """
-    Docstring for add_to_wishlist
+    Adds a book to the users wishlist
 
-    :param request: Description
-    :param slug: Description
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``status``
+        An instance of :model:`status.Status`
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
@@ -123,10 +159,13 @@ def add_to_wishlist(request, slug):
 
 def add_to_currently_reading(request, slug):
     """
-    Docstring for add_to_currently_reading
-    
-    :param request: Description
-    :param slug: Description
+    Adds a book to the users currently reading list
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``status``
+        An instance of :model:`status.Status`
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
@@ -153,10 +192,13 @@ def add_to_currently_reading(request, slug):
 
 def add_to_read(request, slug):
     """
-    Docstring for add_to_read
-    
-    :param request: Description
-    :param slug: Description
+    Adds a book to the users read list
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``status``
+        An instance of :model:`status.Status`
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
@@ -183,10 +225,13 @@ def add_to_read(request, slug):
 
 def add_to_dnf(request, slug):
     """
-    Docstring for add_to_dnf
-    
-    :param request: Description
-    :param slug: Description
+    Adds a book to the users dnf list
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``status``
+        An instance of :model:`status.Status`
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
@@ -213,9 +258,14 @@ def add_to_dnf(request, slug):
 
 def delete_status(request, slug):
     """
-    Docstring for delete_status
-    
-    :param request: Description
+    Deletes the user's status from that book
+    irrespective of which status it was
+
+    **Context**
+    ``book``
+        An instance of :model:`book.Book`
+    ``status``
+        An instance of :model:`status.Status`
     """
     book = get_object_or_404(Book, slug=slug)
     status = get_object_or_404(Status, object=book, author=request.user)
