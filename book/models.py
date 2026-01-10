@@ -77,4 +77,4 @@ class Book(models.Model):
         return average_round
 
     def __str__(self):
-        return f'{self.title} by {self.author}, released in {self.first_published}'
+        return f'{self.title} released in {self.published}'

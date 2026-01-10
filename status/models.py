@@ -20,7 +20,7 @@ class Status(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_book_status"
     )
-    status = models.CharField(choices=STATUS_OPTION, default=1)
+    status = models.CharField(choices=STATUS_OPTION)
     started_on = models.DateTimeField(blank=True, null=True)
     finished_on = models.DateTimeField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
