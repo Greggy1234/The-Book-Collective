@@ -35,7 +35,7 @@ def recent_reviews(request):
             "book_status": book_status,
         }
     )
- 
+
 
 def all_reviews(request):
     """

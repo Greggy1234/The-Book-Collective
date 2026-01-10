@@ -20,7 +20,7 @@ class Status(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_book_status"
     )
-    status = models.CharField(choices=STATUS_OPTION)
+    status = models.PositiveIntegerField(choices=STATUS_OPTION)
     started_on = models.DateTimeField(blank=True, null=True)
     finished_on = models.DateTimeField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -42,3 +42,6 @@ class Status(models.Model):
             self.finished_on = timezone.now()
 
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Status of {self.object.title} for {self.author.username}: {self.get_status_display()}'
