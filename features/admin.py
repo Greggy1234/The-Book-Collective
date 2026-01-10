@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import FutureFeature, FutureFeaturesForm
+from .models import FutureFeatures, FutureFeaturesForm
 
 # Register your models here.
-admin.site.register(FutureFeature)
+admin.site.register(FutureFeatures)
 admin.site.register(FutureFeaturesForm)
