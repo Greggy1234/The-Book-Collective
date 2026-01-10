@@ -16,15 +16,18 @@ def recent_reviews(request):
         Most recent 8 instances of :model:`reviews.Review`
     ``rating``
         All instances of :model:`reviews.Rating`
-    ``book_status``
-        All instances of :model:`status.Status`
+    ``book_status_currently_reading``
+        Most recent 4 :model:`status.Status` where status is currently reading
+    ``book_status_wishlist``
+        Most recent 4 :model:`status.Status` where status is wishlist
 
     **Template**
         :template:`review/index.html`
     """
     review = Review.objects.select_related("object", "author").order_by("-created_on")[:8]
     rating = Rating.objects.select_related("object", "author").order_by("-created_on")
-    book_status = Status.objects.select_related("object", "author").order_by("-created_on")
+    book_status_currently_reading = Status.objects.select_related("object", "author").filter(status=2).order_by("-updated_on")[:4]
+    book_status_wishlist = Status.objects.select_related("object", "author").filter(status=1).order_by("-updated_on")[:4]
 
     return render(
         request,
@@ -32,7 +35,8 @@ def recent_reviews(request):
         {
             "review": review,
             "rating": rating,
-            "book_status": book_status,
+            "book_status_currently_reading": book_status_currently_reading,
+            "book_status_wishlist": book_status_wishlist,
         }
     )
 
