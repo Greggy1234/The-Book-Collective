@@ -56,7 +56,7 @@ class BookSearch(ListView):
         query = self.request.GET.get("q")
         return Book.objects.filter(
             Q(title__icontains=query) | Q(author__author__icontains=query)
-        )
+        ).distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

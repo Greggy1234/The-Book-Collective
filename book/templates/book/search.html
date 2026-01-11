@@ -10,11 +10,35 @@
 <!-- List of results with pagination -->
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <!-- {% for books in book_search %} -->
+        {% for book in book_search %}
         <div class="col-6 col-sm-3 col-md-2">
-            <p>Nothing to see here yet</p>
+            <div class="card mb-3 mx-1 px-0">
+                <div class="card-body mx-0 px-1">
+                    <div class="image-container pb-2">
+                        <a href="{% url 'book_detail' slug=book.slug %}">
+                            {% if 'placeholder' not in book.front_cover.url %}
+                            <img class="card-img-top" src=" {{ book.front_cover.url }}" alt="{{ book.title }}">
+                            {% else %}
+                            <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                alt="placeholder image">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'book_detail' slug=book.slug %}" class="card-title p-small bold book-link-text">
+                            {{ book.title }}</a>
+                    </div>
+                    {% for author in book.author.all %}
+                    {% if forloop.counter == 1 %}
+                    <p class="card-text p-small text-center">by {{ author }}
+                        {% else %}, {{ author }}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
-        <!-- endfor -->
+        {% endfor %}
     </div>
 
     {% if is_paginated %}
@@ -23,7 +47,7 @@
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
             {% endif %}
-            <p>Page {{ page_obj.num }} of {{ page_obj.num_pages }} </p>
+            <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} </p>
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}"> NEXT &raquo;</a></li>
             {% endif %}
@@ -31,18 +55,22 @@
     </nav>
     {% endif %}
 </div>
-{% elif %}
-<p>No results unfortunately</p>
+{% else %}
+<p>No results for {{ query }} unfortunately</p>
 {% endif %}
 <div class="text-center py-2">
-    <p>If you can't see your book, add it here::</p>
-    <a class="btn btn-primary" aria-label="Link to the Add Book page" href="{% url 'add_book' %}">Add New Book</a>
+    <p>If you can't see your book, add it here:</p>
+    <a class="button" aria-label="Link to the Add Book page" href="{% url 'add_book' %}">Add New Book</a>
 </div>
-<hr>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
 <div class="text-center">
     <h3>Want to read some reviews?</h3>
-    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All
-        Reviews</a>
+    <div class="pb-4">
+        <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All
+            Reviews</a>
+    </div>
 </div>
 
 <!-- search.html content ends here -->
