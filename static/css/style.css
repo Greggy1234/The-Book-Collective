@@ -27,7 +27,12 @@
 }
 
 /* Global styles */
-body {
+html {
+    background-color: #F2F0EF;
+}
+
+body,
+.card-body {
     background-color: #F2F0EF;
     font-family: var(--text-font);
     color: var(--main-text);
@@ -62,6 +67,10 @@ hr {
     opacity: 1;
     border: none;
     border-top: 1px dotted var(--main-highlight);
+}
+
+.card {
+    border: none;
 }
 
 .bold {
@@ -126,12 +135,6 @@ footer a {
 /* Small sized screens and above (mobiles up, max width 576px) */
 @media screen and (min-width: 576px) {
 
-    /* General styles */
-    .right-border-no-mobile {
-        border-right: 1px dotted var(--secondary-highlight);
-        ;
-    }
-
     /* Add book form styles */
     #id_author,
     #id_genres {
@@ -144,6 +147,14 @@ footer a {
 
 /* Large sized screens and above (Large laptops up, max width 992px) */
 @media screen and (min-width: 992px) {
+
+    /* General styles */
+    .right-border-no-mobile {
+        border-right: 1px dotted var(--secondary-highlight);
+        ;
+    }
+
+    /* Add book form styles */
     #id_author,
     #id_genres {
         display: grid;

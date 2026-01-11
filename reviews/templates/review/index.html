@@ -8,27 +8,55 @@
     <h2>Where book lovers can track and review their best <span class="bold">and worst </span>reads</h2>
 </div>
 <!-- User currently reading and wishlist -->
-<div class="container pt-2">
+<div class="container py-2">
     <div class="row justify-content-around">
-        <div class="col-12 col-md-6 py-2 text-center right-border-no-mobile">
+        <div class="col-12 col-lg-6 py-4 text-center right-border-no-mobile">
             <h3>Currently Reading</h3>
             {% if book_status_currently_reading %}
             {% for book in book_status_currently_reading %}
-            <p>{{ book.object.title }}</p>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-title p-small bold">{{ book.object.title }}</p>
+                    {% for author in book.object.author.all %}
+                    {% if forloop.counter == 1 %}
+                    <p class="card-text p-small">by {{ author }}</p>
+                    {% else %}
+                    <p class="card-text p-small">, {{ author }}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
             {% endfor %}
-            {% endif %}
-            <p>Nothing to see here yet</p>
             <a href="{% url 'profile_page' username=user.username %}" class="button">Visit Your Profile</a>
+            {% else %}
+            <p>Nothing to see here. Add your current book:</p>
+            <a href="{% url 'book_overview' %}" class="button">Add Your Current Read</a>
+            {% endif %}
         </div>
-        <div class="col-12 col-md-6 py-2 text-center">
+        <div class="col-12 col-lg-6 py-2 text-center">
             <h3>Wishlist</h3>
             {% if book_status_wishlist %}
-            {% for book in book_status_wishlist %}
-            <p>{{ book.object.title }}</p>
-            {% endfor %}
-            {% endif %}
-            <p>Nothing to see here yet</p>
+            <div class="flex-row">
+                {% for book in book_status_wishlist %}
+                <div class="card mb-3 mx-1 px-0">
+                    <div class="card-body mx-0 px-1">
+                        <p class="card-title p-small bold">{{ book.object.title }}</p>
+                        {% for author in book.object.author.all %}
+                        {% if forloop.counter == 1 %}
+                        <p class="card-text p-small">by {{ author }}</p>
+                        {% else %}
+                        <p class="card-text p-small">, {{ author }}</p>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
             <a href="{% url 'profile_wishlist' username=user.username %}" class="button">View Your Wishlist</a>
+            {% else %}
+            <p>Nothing to see here. Add books to your wishlist:</p>
+            <a href="{% url 'book_overview' %}" class="button">Add To Wishlist</a>
+            {% endif %}
         </div>
     </div>
 </div>
