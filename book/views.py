@@ -122,6 +122,8 @@ def add_book(request):
     **Context**
     ``add_book_form``
         An instance of :form:`book.AddBook`
+    ``add_author_form``
+        An instance of :form:`book.AddAuthor`
 
      **Template**
         :template:`book/add-book.html`
@@ -136,12 +138,14 @@ def add_book(request):
             )
 
     add_book_form = AddBook()
+    add_author_form = AddAuthor()
 
     return render(
         request,
         "book/add-book.html",
         {
-            "add_book_form": add_book_form
+            "add_book_form": add_book_form,
+            "add_author_form": add_author_form
         }
     )
 

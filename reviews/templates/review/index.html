@@ -12,11 +12,21 @@
     <div class="row justify-content-around">
         <div class="col-12 col-md-6 py-2 text-center right-border-no-mobile">
             <h3>Currently Reading</h3>
+            {% if book_status_currently_reading %}
+            {% for book in book_status_currently_reading %}
+            <p>{{ book.object.title }}</p>
+            {% endfor %}
+            {% endif %}
             <p>Nothing to see here yet</p>
             <a href="{% url 'profile_page' username=user.username %}" class="button">Visit Your Profile</a>
         </div>
         <div class="col-12 col-md-6 py-2 text-center">
             <h3>Wishlist</h3>
+            {% if book_status_wishlist %}
+            {% for book in book_status_wishlist %}
+            <p>{{ book.object.title }}</p>
+            {% endfor %}
+            {% endif %}
             <p>Nothing to see here yet</p>
             <a href="{% url 'profile_wishlist' username=user.username %}" class="button">View Your Wishlist</a>
         </div>

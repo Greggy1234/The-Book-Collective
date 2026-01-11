@@ -26,8 +26,8 @@ def recent_reviews(request):
     """
     review = Review.objects.select_related("object", "author").order_by("-created_on")[:8]
     rating = Rating.objects.select_related("object", "author").order_by("-created_on")
-    book_status_currently_reading = Status.objects.select_related("object", "author").filter(status=2).order_by("-updated_on")[:4]
-    book_status_wishlist = Status.objects.select_related("object", "author").filter(status=1).order_by("-updated_on")[:4]
+    book_status_currently_reading = Status.objects.select_related("object", "author").filter(status=2, author=request.user).order_by("-updated_on")[:4]
+    book_status_wishlist = Status.objects.select_related("object", "author").filter(status=1, author=request.user).order_by("-updated_on")[:4]
 
     return render(
         request,

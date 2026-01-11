@@ -6,16 +6,57 @@
 <!-- add-book.hmtl code starts here -->
 <div class="py-3 text-center">
     <h1>Add a book</h1>
-    <h2>Here, you can add a book so you can keep track</h2>
+    <h2>Add a book so you can keep track</h2>
 </div>
 <!-- Add book form goes here -->
-<div class="container">
+<div class="container pb-4">
     <div class="row">
-        <div class="col-8 justify-content-center">
+        <div class="col-12 justify-content-center">
             <form id="add_book_form" method="POST">
-                {{ add_book_form | crispy }}
+                <p class="p-small margin-bottom-point5">Author(s)* (you can select multiple)</p>
+                {{ add_book_form.author }}
+                <p class="p-small margin-bottom-point5">If you can't find the author in the list, add it below. The page
+                    will reload fresh after adding, so do this first:</p>
+                <button type="button" class="button margin-bottom-point5" data-bs-toggle="modal" data-bs-target="#addAuthorModal">Add New
+                    Author</button>
+                {{ add_book_form.title | as_crispy_field }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ add_book_form.pages | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ add_book_form.published | as_crispy_field }}
+                    </div>
+                </div>
+                {{ add_book_form.synopsis | as_crispy_field }}
+                <p class="p-small margin-bottom-point5">Genre(s)* (you can select multiple)</p>
+                {{ add_book_form.genres }}
+                {{ add_book_form.language | as_crispy_field }}
                 {% csrf_token %}
-                <button type="submit">Submit</button>
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Add new author form modal -->
+<div class="modal fade" id="addAuthorModal" tabindex="-1" role="dialog" aria-labelledby="Add Author form modal"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAuthorModal">Add an Author</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add_author_form" method="POST">
+                <div class="modal-body">
+                    {{ add_author_form | crispy }}
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="button">Add Author</button>
+                </div>
             </form>
         </div>
     </div>
