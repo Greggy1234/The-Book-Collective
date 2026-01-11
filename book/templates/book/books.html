@@ -7,17 +7,40 @@
     <h1>Books</h1>
     <h2>Find your book, track your reading, then write a review!</h2>
     <p>If you don't find your book in the list below, you can add a new book here:</p>
-    <a class="btn btn-primary" aria-label="Link to the Add Book page" href="{% url 'add_book' %}">Add New Book</a>
+    <a class="button" aria-label="Link to the Add Book page" href="{% url 'add_book' %}">Add New Book</a>
 </div>
 <!-- List of books with 12 per page -->
 <div class="container">
     <div class="row justify-content-center">
-        <!-- {% for book in books %} -->
+        {% for book in books %}
         <div class="col-6 col-sm-3 col-md-2">
-            <!-- {% url 'book_detail' slug=book.slug %} -->
-            <p>Nothing to see here yet</p>
+            <div class="card mb-3 mx-1 px-0">
+                <div class="card-body mx-0 px-1">
+                    <div class="image-container pb-2">
+                        <a href="{% url 'book_detail' slug=book.slug %}">
+                            {% if 'placeholder' not in book.front_cover.url %}
+                            <img class="card-img-top" src=" {{ book.front_cover.url }}" alt="{{ book.title }}">
+                            {% else %}
+                            <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                alt="placeholder image">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'book_detail' slug=book.slug %}" class="card-title p-small bold book-link-text">
+                            {{ book.title }}</a>
+                    </div>
+                    {% for author in book.author.all %}
+                    {% if forloop.counter == 1 %}
+                    <p class="card-text p-small text-center">by {{ author }}
+                        {% else %}, {{ author }}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
-        <!-- {% endfor %} -->
+        {% endfor %}
     </div>
 
     {% if is_paginated %}
@@ -26,7 +49,7 @@
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
             {% endif %}
-            <p>Page {{ page_obj.num }} of {{ page_obj.num_pages }} </p>
+            <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} </p>
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}"> NEXT &raquo;</a></li>
             {% endif %}
@@ -34,10 +57,15 @@
     </nav>
     {% endif %}
 </div>
-<hr>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
 <div class="text-center">
     <h3>Want to read some reviews?</h3>
-    <a class="btn btn-primary" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All Reviews</a>
+    <div class="pb-4">
+        <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All
+            Reviews</a>
+    </div>
 </div>
 
 <!-- books.html content ends here -->

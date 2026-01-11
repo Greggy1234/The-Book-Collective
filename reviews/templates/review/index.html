@@ -13,26 +13,31 @@
         <div class="col-12 col-lg-6 py-4 text-center right-border-no-mobile">
             <h3>Currently Reading</h3>
             {% if book_status_currently_reading %}
-            <div class="flex-row justify-content-center">
+            <div class="row justify-content-center">
                 {% for book in book_status_currently_reading %}
-                <div class="card mb-3 mx-1 px-0">
-                    <div class="card-body mx-0 px-1">
-                        <div class="image-container pb-2">
-                            {% if book.front_cover %}
-                            <img class="card-img-top" src=" {{ book.featured_image.url }}" alt="{{ book.title }}">
-                            {% else %}
-                            <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
-                                alt="placeholder image">
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3 mx-1 px-0">
+                        <div class="card-body mx-0 px-1">
+                            <div class="image-container pb-2">
+                                <a href="{% url 'book_detail' slug=book.object.slug %}">
+                                    {% if 'placeholder' not in book.object.front_cover.url %}
+                                    <img class="card-img-top" src=" {{ book.object.front_cover.url }}"
+                                        alt="{{ book.object.title }}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                        alt="placeholder image">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <a href="{% url 'book_detail' slug=book.object.slug %}"
+                                class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                            {% for author in book.object.author.all %}
+                            {% if forloop.counter == 1 %}
+                            <p class="card-text p-small">by {{ author }}
+                                {% else %}, {{ author }}</p>
                             {% endif %}
+                            {% endfor %}
                         </div>
-                        <p class="card-title p-small bold">{{ book.object.title }}</p>
-                        {% for author in book.object.author.all %}
-                        {% if forloop.counter == 1 %}
-                        <p class="card-text p-small">by {{ author }}</p>
-                        {% else %}
-                        <p class="card-text p-small">, {{ author }}</p>
-                        {% endif %}
-                        {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
@@ -46,26 +51,32 @@
         <div class="col-12 col-lg-6 py-2 text-center">
             <h3>Wishlist</h3>
             {% if book_status_wishlist %}
-            <div class="flex-row justify-content-center">
+            <div class="row justify-content-center">
                 {% for book in book_status_wishlist %}
-                <div class="card mb-3 mx-1 px-0">
-                    <div class="card-body mx-0 px-1">
-                        <div class="image-container pb-2">
-                            {% if book.front_cover %}
-                            <img class="card-img-top" src=" {{ book.featured_image.url }}" alt="{{ book.title }}">
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3 mx-1 px-0">
+                        <div class="card-body mx-0 px-1">
+                            <div class="image-container pb-2">
+                                <a href="{% url 'book_detail' slug=book.object.slug %}">
+                                    {% if book.front_cover %}
+                                    <img class="card-img-top" src=" {{ book.featured_image.url }}"
+                                        alt="{{ book.title }}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                        alt="placeholder image">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <a href="{% url 'book_detail' slug=book.object.slug %}"
+                                class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                            {% for author in book.object.author.all %}
+                            {% if forloop.counter == 1 %}
+                            <p class="card-text p-small">by {{ author }}</p>
                             {% else %}
-                            <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
-                                alt="placeholder image">
+                            <p class="card-text p-small">, {{ author }}</p>
                             {% endif %}
+                            {% endfor %}
                         </div>
-                        <p class="card-title p-small bold">{{ book.object.title }}</p>
-                        {% for author in book.object.author.all %}
-                        {% if forloop.counter == 1 %}
-                        <p class="card-text p-small">by {{ author }}</p>
-                        {% else %}
-                        <p class="card-text p-small">, {{ author }}</p>
-                        {% endif %}
-                        {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
