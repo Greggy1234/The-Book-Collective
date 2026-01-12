@@ -10,7 +10,7 @@
 <!-- User currently reading and wishlist -->
 <div class="container-fluid py-2">
     <div class="row justify-content-around">
-        <div class="col-12 col-lg-6 py-4 text-center right-border-no-mobile">
+        <div class="col-12 col-lg-6 py-2 text-center right-border-no-mobile d-flex flex-column">
             <h3>Currently Reading</h3>
             {% if book_status_currently_reading %}
             <div class="row justify-content-center">
@@ -31,24 +31,23 @@
                             </div>
                             <a href="{% url 'book_detail' slug=book.object.slug %}"
                                 class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
-                            {% for author in book.object.author.all %}
-                            {% if forloop.counter == 1 %}
-                            <p class="card-text p-small">by {{ author }}
-                                {% else %}, {{ author }}</p>
-                            {% endif %}
-                            {% endfor %}
+                            <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <a href="{% url 'profile_page' username=user.username %}" class="button">Visit Your Profile</a>
+            <div class="mt-auto">
+                <a href="{% url 'profile_page' username=user.username %}" class="button">Visit Your Profile</a>
+            </div>
             {% else %}
             <p>Nothing to see here. Add your current book:</p>
-            <a href="{% url 'book_overview' %}" class="button">Add Your Current Read</a>
+            <div class="mt-auto">
+                <a href="{% url 'book_overview' %}" class="button">Add Your Current Read</a>
+            </div>
             {% endif %}
         </div>
-        <div class="col-12 col-lg-6 py-2 text-center">
+        <div class="col-12 col-lg-6 py-2 text-center d-flex flex-column">
             <h3>Wishlist</h3>
             {% if book_status_wishlist %}
             <div class="row justify-content-center">
@@ -69,22 +68,20 @@
                             </div>
                             <a href="{% url 'book_detail' slug=book.object.slug %}"
                                 class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
-                            {% for author in book.object.author.all %}
-                            {% if forloop.counter == 1 %}
-                            <p class="card-text p-small">by {{ author }}</p>
-                            {% else %}
-                            <p class="card-text p-small">, {{ author }}</p>
-                            {% endif %}
-                            {% endfor %}
+                            <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <a href="{% url 'profile_wishlist' username=user.username %}" class="button">View Your Wishlist</a>
+            <div class="mt-auto">
+                <a href="{% url 'profile_wishlist' username=user.username %}" class="button">View Your Wishlist</a>
+            </div>
             {% else %}
             <p>Nothing to see here. Add books to your wishlist:</p>
-            <a href="{% url 'book_overview' %}" class="button">Add To Wishlist</a>
+            <div class="mt-auto">
+                <a href="{% url 'book_overview' %}" class="button">Add To Wishlist</a>
+            </div>
             {% endif %}
         </div>
     </div>

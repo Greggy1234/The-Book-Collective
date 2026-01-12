@@ -30,12 +30,7 @@
                         <a href="{% url 'book_detail' slug=book.slug %}" class="card-title p-small bold book-link-text">
                             {{ book.title }}</a>
                     </div>
-                    {% for author in book.author.all %}
-                    {% if forloop.counter == 1 %}
-                    <p class="card-text p-small text-center">by {{ author }}
-                        {% else %}, {{ author }}</p>
-                    {% endif %}
-                    {% endfor %}
+                    <p class="card-text p-small text-center">by {{book.author.all|join:", " }}</p>
                 </div>
             </div>
 
