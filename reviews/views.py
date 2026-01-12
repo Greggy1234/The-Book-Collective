@@ -13,7 +13,7 @@ def recent_reviews(request):
 
     **Context**
     ``review``
-        Most recent 8 instances of :model:`reviews.Review`
+        Most recent 4 instances of :model:`reviews.Review`
     ``rating``
         All instances of :model:`reviews.Rating`
     ``book_status_currently_reading``
@@ -24,7 +24,7 @@ def recent_reviews(request):
     **Template**
         :template:`review/index.html`
     """
-    review = Review.objects.select_related("object", "author").order_by("-created_on")[:8]
+    review = Review.objects.select_related("object", "author").order_by("-created_on")[:4]
     rating = Rating.objects.select_related("object", "author").order_by("-created_on")
     book_status_currently_reading = Status.objects.select_related("object", "author").filter(status=2, author=request.user).order_by("-updated_on")[:4]
     book_status_wishlist = Status.objects.select_related("object", "author").filter(status=1, author=request.user).order_by("-updated_on")[:4]
@@ -87,7 +87,7 @@ def review_detail(request, slug):
         :template:`review/review-detail.html`
     """
     review = get_object_or_404(Review, slug=slug)
-    rating = Rating.objects.all().filter(author=request.user, object=review.object)
+    rating = Rating.objects.all().filter(author=review.author, object=review.object).first()
 
     return render(
         request,

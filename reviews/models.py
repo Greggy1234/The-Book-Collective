@@ -24,6 +24,9 @@ class Review(models.Model):
     class Meta:
         ordering = ["-created_on"]
 
+    def rating_with_review(self):
+        return Rating.objects.filter(author=self.author, object=self.object).first()
+
     def number_likes(self):
         return self.review_like.count()
 

@@ -7,12 +7,30 @@
 <!-- List of books paginated -->
 <div class="container">
     <div class="row">
-        <!-- {% for book in books_wish_page_obj.object.title  %} -->
+        {% for book in books_wish_page_obj %}
         <div class="col-6 col-sm-3 col-md-2">
-            <!-- {% url 'book_detail' slug=book.slug %} -->
-            <p>Nothing to see here yet</p>
+            <div class="card mb-3 mx-1 px-0">
+                <div class="card-body mx-0 px-1">
+                    <div class="image-container pb-2">
+                        <a href="{% url 'book_detail' slug=book.object.slug %}">
+                            {% if 'placeholder' not in book.front_cover.url %}
+                            <img class="card-img-top" src=" {{ book.object.front_cover.url }}" alt="{{ book.object.title }}">
+                            {% else %}
+                            <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                alt="placeholder image">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'book_detail' slug=book.object.slug %}" class="card-title p-small bold book-link-text">
+                            {{ book.title }}</a>
+                    </div>
+                    <p class="card-text p-small text-center">by {{book.author.all|join:", " }}</p>
+                </div>
+            </div>
+
         </div>
-        <!-- {% endfor %} -->
+        {% endfor %}
     </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">
@@ -20,7 +38,7 @@
             {% if books_wish_page_obj.has_previous %}
             <li><a href="?page={{ books_wish_page_obj.previous_page_number }}">&laquo; PREV</a></li>
             {% endif %}
-            <p>Page {{ books_wish_page_obj.num }} of {{ books_wish_page_obj.num_pages }} </p>
+            <p>Page {{ books_wish_page_obj.number }} of {{ books_wish_page_obj.paginator.num_pages }} </p>
             {% if books_wish_page_obj.has_next %}
             <li><a href="?page={{ books_wish_page_obj.next_page_number }}"> NEXT &raquo;</a></li>
             {% endif %}

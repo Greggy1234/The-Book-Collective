@@ -5,7 +5,6 @@
 :root {
     --title-font: "Style Script", Serif;
     --text-font: "Crimson Text", Serif;
-    /* To be used for h1 and other important highlights */
     --main-highlight: #4A0E4E;
     --secondary-highlight: #34495E;
     --main-text: #333333;
@@ -24,6 +23,17 @@
     background-color: var(--button-links);
     font-family: var(--title-font);
     font-size: 1.4rem;
+}
+
+
+
+.button-2 {
+    padding: 2px 6px;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(74, 14, 78, 0.5);
+    font-family: var(--text-font);
+    font-size: 1rem;
 }
 
 /* Global styles */
@@ -96,6 +106,10 @@ hr {
     font-weight: bold;
 }
 
+.not-bold {
+    font-weight: normal;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -114,7 +128,15 @@ nav form {
     gap: 10px;
 }
 
+/* Review styles */
+.review-box {
+    border: 1px double var(--main-highlight);
+    box-shadow: 3px 3px 10px 1px var(--main-highlight);
+}
 
+.review-box h4 {
+    font-size: 1.3rem;
+}
 
 /* Add book form styles */
 #id_author,
@@ -152,7 +174,8 @@ footer a {
 }
 
 /* Media queries */
-/* Small sized screens and above (mobiles up, max width 576px) */
+/* Min-width styles */
+/* Small sized screens and above (mobiles up, min width 576px) */
 @media screen and (min-width: 576px) {
 
     /* Add book form styles */
@@ -165,7 +188,7 @@ footer a {
     }
 }
 
-/* Large sized screens and above (Large laptops up, max width 992px) */
+/* Large sized screens and above (Large laptops up, min width 992px) */
 @media screen and (min-width: 992px) {
 
     /* General styles */
@@ -179,5 +202,15 @@ footer a {
     #id_genres {
         display: grid;
         grid-template-columns: auto auto auto auto;
+    }
+}
+
+/* Max-width styles */
+/* Small sized screens and above (mobiles up, max width 576px) */
+@media screen and (max-width: 576px) {
+
+    /* Review styles */
+    .not-on-mobile {
+        display: none;
     }
 }
