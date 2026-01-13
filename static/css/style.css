@@ -167,6 +167,19 @@ nav form {
     font-size: 4rem;
 }
 
+/* Feature styles */
+.normal-font-size {
+    font-size: 1.3rem;
+}
+
+.features-bullet li {
+    color: var(--secondary-highlight);
+}
+
+.text-color {
+    color: var(--main-text)
+}
+
 
 /* Footer styles */
 footer {
@@ -201,6 +214,16 @@ footer a {
     }
 }
 
+
+/* Mid sized screens and above (tablets up, max width 768px) */
+@media screen and (min-width: 768px) {
+
+    /* Review styles */
+    .not-on-tablet {
+        display: none;
+    }
+}
+
 /* Large sized screens and above (Large laptops up, min width 992px) */
 @media screen and (min-width: 992px) {
 
@@ -224,7 +247,7 @@ footer a {
 }
 
 /* Max-width styles */
-/* Small sized screens and above (mobiles up, max width 576px) */
+/* Small sized screens and below (mobiles down, max width 576px) */
 @media screen and (max-width: 576px) {
 
     /* Review styles */

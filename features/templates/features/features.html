@@ -6,58 +6,80 @@
 <!-- features.html content starts here -->
 <div class="py-3 text-center">
     <h1>Future Features</h1>
-    <h2>Take a look at what's going to be implemented in the future</h2>
+    <h2 class="mb-4">Take a look at what's going to be implemented in the future</h2>
 </div>
 <!-- List of features -->
 <!-- Currently Working On features -->
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-sm-4 justify-content-center">
-            <h3>Close to completion</h3>
-            <P>Nothing to see here</P>
+<div class="container-fluid px-5 my-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-4 mb-3 right-border-no-mobile">
+            <h3 class="text-center">Close to completion</h3>
+            <ul class="features-bullet">
+                {% for feature in features %}
+                {% if feature.status == 1 %}
+                <li class="mb-2 normal-font-size"><span class="text-color">{{ feature.feature }}</span></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="not-on-tablet mb-4">
+            <div class="d-flex justify-content-center">
+                <hr>
+            </div>
+        </div>
+        <!-- Next in line features -->
+        <div class="col-12 col-sm-4 mb-3 right-border-no-mobile">
+            <h3 class="text-center">Under Development</h3>
+            <ul class="features-bullet">
+                {% for feature in features %}
+                {% if feature.status == 2 %}
+                <li class="mb-2 normal-font-size"><span class="text-color">{{ feature.feature }}</span></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="not-on-tablet mb-4">
+            <div class="d-flex justify-content-center ">
+                <hr>
+            </div>
+        </div>
+        <!-- Planning Stage features -->
+        <div class="col-12 col-sm-4">
+            <h3 class="text-center">Planning Stage</h3>
+            <ul class="features-bullet">
+                {% for feature in features %}
+                {% if feature.status == 3 %}
+                <li class="mb-2 normal-font-size"><span class="text-color">{{ feature.feature }}</span></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
-<!-- Next in line features -->
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-sm-4 justify-content-center">
-            <h3>Under Development</h3>
-            <P>Nothing to see here</P>
-        </div>
-    </div>
-</div>
-<!-- Planning Stage features -->
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-sm-4 justify-content-center">
-            <h3>Planning Stage</h3>
-            <P>Nothing to see here</P>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-8 justify-content-center">
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-8">
             <h3 class="text-center">Submit any features you would like to see</h3>
             <form id="feature_form" method="POST">
                 {{ feature_form | crispy }}
                 {% csrf_token %}
-                <button type="submit">Submit</button>
+                <button type="submit" class="button">Submit</button>
             </form>
         </div>
     </div>
 </div>
-<hr>
-<div class="text-center">
-    <h3>Choose your next book or see all the reviews:</h3>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
+<div class="text-center pb-4">
+    <h3 class="pb-3">Choose your next book or see all the reviews:</h3>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 justify-content-center">
-                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
-                    href="{% url 'book_overview' %}">All Books</a>
-                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
-                    href="{% url 'all_reviews' %}">All Reviews</a>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All
+                    Books</a>
+                <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All
+                    Reviews</a>
             </div>
         </div>
     </div>
