@@ -97,8 +97,8 @@
             <div class="review-box mb-5 pt-4 px-3 text-start">
                 <h4 class="bold">Review of {{ review.object.title }} <span
                         class="not-on-mobile not-bold">({{review.object.author.all|join:", " }})</span> by
-                    {{review.author.username}}:</h4>
-                <p>{{review.review}}</p>
+                    {{review.author.username}}:</h4>        
+                <p>{{ review.review|truncatechars:150 }}</p>
                 {% if review.rating_with_review %}
                 <p class="p-small bold">Rating: {{ review.rating_with_review.rating }}/5</p>
                 {% else %}

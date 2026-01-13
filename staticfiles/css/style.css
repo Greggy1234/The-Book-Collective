@@ -5,27 +5,253 @@
 :root {
     --title-font: "Style Script", Serif;
     --text-font: "Crimson Text", Serif;
-    /* To be used for h1 and other important highlights */
-    --main-highlight: #442b23;
+    --main-highlight: #4A0E4E;
     --secondary-highlight: #34495E;
     --main-text: #333333;
-    --button: #4A0E4E;
+    --button-links: #C5A059;
 }
 
 /* Button styles */
 
 
-/* General styles */
+.button {
+    border: 2px solid var(--button-links);
+    padding: 6px 8px 1px;
+    border-radius: 0.9rem;
+    text-decoration: none;
+    color: white;
+    background-color: var(--button-links);
+    font-family: var(--title-font);
+    font-size: 1.4rem;
+}
+
+
+
+.button-2 {
+    padding: 2px 6px;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(74, 14, 78, 0.5);
+    font-family: var(--text-font);
+    font-size: 1rem;
+}
+
+/* Global styles */
+html {
+    background-color: #F2F0EF;
+}
+
 body {
-    color: #F2F0EF;
+    display: flex;
+    flex-direction: column;
+}
+
+body,
+.card-body {
+    background-color: #F2F0EF;
+    font-family: var(--text-font);
+    color: var(--main-text);
 }
 
 h1,
-h2,
+h3,
+.modal-title,
 .navbar-brand {
     font-family: var(--title-font);
+    color: var(--main-highlight);
+}
+
+h2 {
+    color: var(--main-highlight);
+}
+
+.modal-title {
+    font-size: 2rem;
+}
+
+p {
+    font-size: 1.3rem;
+}
+
+.p-small {
+    font-size: 1rem;
+}
+
+.book-link-text {
+    color: var(--main-text);
+}
+
+hr {
+    width: 60%;
+    opacity: 1;
+    border: none;
+    border-top: 1px dotted var(--main-highlight);
+}
+
+.card {
+    border: none;
+}
+
+.image-container {
+    height: 100px;
+}
+
+.image-container img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .bold {
     font-weight: bold;
+}
+
+.not-bold {
+    font-weight: normal;
+}
+
+.white-background {
+    background-color: white;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.margin-bottom-point5 {
+    margin-bottom: .5rem;
+}
+
+/* Navbar styles */
+.navbar {
+    border-bottom: 2px solid var(--secondary-highlight);
+}
+
+nav form {
+    gap: 10px;
+}
+
+/* Review styles */
+.review-box {
+    border: 1px double var(--main-highlight);
+    box-shadow: 3px 3px 10px 1px var(--main-highlight);
+}
+
+.review-box h4 {
+    font-size: 1.3rem;
+}
+
+/* Add book form styles */
+#id_author,
+#id_genres {
+    display: grid;
+    grid-template-columns: auto auto;
+    font-size: 0.8rem;
+    max-height: 150px;
+    overflow-y: scroll;
+    /* Style taken from the CSS of .form-control to match the other fields*/
+    background-color: #fff;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    padding: .375rem .75rem;
+}
+
+/* Profile stat box styles */
+.stat-box {
+    border: 1px double var(--main-highlight);
+    box-shadow: 3px 3px 10px 1px var(--main-highlight);
+}
+
+.p-stat-box {
+    font-size: 4rem;
+}
+
+/* Feature styles */
+.normal-font-size {
+    font-size: 1.3rem;
+}
+
+.features-bullet li {
+    color: var(--secondary-highlight);
+}
+
+.text-color {
+    color: var(--main-text)
+}
+
+
+/* Footer styles */
+footer {
+    border-top: 2px solid var(--secondary-highlight);
+    min-height: 75px;
+}
+
+footer a {
+    color: var(--button-links);
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.icons {
+    font-size: 1.3rem;
+    padding-right: .3rem;
+}
+
+/* Media queries */
+/* Min-width styles */
+/* Small sized screens and above (mobiles up, min width 576px) */
+@media screen and (min-width: 576px) {
+
+    /* Add book form styles */
+    #id_author,
+    #id_genres {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        font-size: 1rem;
+        max-height: 200px;
+    }
+}
+
+
+/* Mid sized screens and above (tablets up, max width 768px) */
+@media screen and (min-width: 768px) {
+
+    /* Review styles */
+    .not-on-tablet {
+        display: none;
+    }
+}
+
+/* Large sized screens and above (Large laptops up, min width 992px) */
+@media screen and (min-width: 992px) {
+
+    /* General styles */
+    .right-border-no-mobile {
+        border-right: 1px dotted var(--secondary-highlight);
+        ;
+    }
+
+    /* Add book form styles */
+    #id_author,
+    #id_genres {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+
+    /* Profile styles */
+    .not-on-laptop {
+        display: none;
+    }
+}
+
+/* Max-width styles */
+/* Small sized screens and below (mobiles down, max width 576px) */
+@media screen and (max-width: 576px) {
+
+    /* Review styles */
+    .not-on-mobile {
+        display: none;
+    }
 }
