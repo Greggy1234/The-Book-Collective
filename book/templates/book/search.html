@@ -4,7 +4,7 @@
 {% block content %}
 <!-- search.html content starts here -->
 <div class="py-3 text-center">
-    <h1>Results for {{ query }}</h1>
+    <h1>Results for {{ request.GET.q }}</h1>
 </div>
 {% if book_search %}
 <!-- List of results with pagination -->
@@ -51,7 +51,7 @@
     {% endif %}
 </div>
 {% else %}
-<p class="text-center bold">No results for {{ query }} unfortunately</p>
+<p class="text-center bold">No results for {{ request.GET.q }} unfortunately</p>
 {% endif %}
 <div class="text-center py-2">
     <p>If you can't see your book, add it here:</p>

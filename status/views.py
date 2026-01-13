@@ -46,7 +46,13 @@ def profile_page(request, username):
     book_status_read = book_status.filter(status=3).order_by("-updated_on")[:4]
     book_status_dnf = book_status.filter(status=4).order_by("-updated_on")[:4]
     book_read_count = Status.objects.filter(author=user, status=3).count()
-    user_avg_rating = Rating.objects.filter(author=user).aggregate(Avg('rating'))['rating__avg']
+
+    get_ratings = Rating.objects.filter(author=user)
+    avg_rating = get_ratings.aggregate(Avg('rating'))['rating__avg']
+    if not avg_rating:
+        user_avg_rating = None
+    else:
+        user_avg_rating = round(avg_rating, 2)
 
     return render(
         request,
@@ -59,7 +65,7 @@ def profile_page(request, username):
             "book_status_read": book_status_read,
             "book_read_dnf": book_status_dnf,
             "user": user,
-            "avg_rating": user_avg_rating,
+            "user_avg_rating": user_avg_rating,
         }
     )
 

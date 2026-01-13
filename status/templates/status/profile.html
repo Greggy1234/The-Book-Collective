@@ -3,38 +3,202 @@
 
 {% block content %}
 <!-- profile.hmtl code starts here -->
-<h1>{{ user.username }}'s Profile</h1>
+<div class="py-3 text-center">
+    <h1>{{ user.username }}'s Profile</h1>
+</div>
 <!-- Stat boxes-->
 <div class="container">
-    <div class="row">
-        <div class="col-6 justify-content-center">
-            <!-- {{ book_read_count }} -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+            {% for book in book_status_read %}
+            {% if forloop.counter == 1 %}
+            <p>{{ book.object.title }}</p>
+            {% endif %}
+            {% endfor %}
         </div>
-        <div class="col-6 justify-content-center">
-            <!-- {{ user_avg_rating }} -->
+        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+            <p>{{ book_read_count }}</p>
+        </div>
+        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-2">
+            {% if user_avg_rating %}
+            <p>{{ user_avg_rating }}</p>
+            {% else %}
+            <p>Nothing</p>
+            {% endif %}
         </div>
     </div>
 </div>
 <!-- Overall summary of books -->
- <div class="container">
+<div class="container-fluid py-2">
     <div class="row">
-        <div class="col-12 col-sm 6">
+        <!-- Books read -->
+        <div class="col-12 col-lg-6 py-3 text-center d-flex flex-column">
             <h3>Books Read</h3>
+            {% if book_status_read %}
+            <div class="row right-border-no-mobile">
+                {% for book in book_status_read %}
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3 mx-1 px-0">
+                        <div class="card-body mx-0 px-1">
+                            <div class="image-container pb-2">
+                                <a href="{% url 'book_detail' slug=book.object.slug %}">
+                                    {% if 'placeholder' not in book.object.front_cover.url %}
+                                    <img class="card-img-top" src=" {{ book.object.front_cover.url }}"
+                                        alt="{{ book.object.title }}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                        alt="placeholder image">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <a href="{% url 'book_detail' slug=book.object.slug %}"
+                                class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                            <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mt-auto">
+                <a href="{% url 'profile_read' username=user.username %}" class="button">See All Books Read</a>
+            </div>
+            {% else %}
+            <p>Nothing to see here. Add your current book:</p>
+            <div class="mt-auto">
+                <a href="{% url 'book_overview' %}" class="button">Add Your Current Read</a>
+            </div>
+            {% endif %}
         </div>
-        <div class="col-12 col-sm 6">
-            <h3>{{ user.username }}'s Wishlist</h3>
+        <div class="not-on-laptop">
+            <div class="d-flex justify-content-center not-on-laptop">
+                <hr>
+            </div>
+        </div>
+        <!-- Wishlist -->
+        <div class="col-12 col-lg-6 py-3 text-center d-flex flex-column">
+            <h3>{{ user.username }} Wishlist</h3>
+            {% if book_status_wishlist %}
+            <div class="row">
+                {% for book in book_status_wishlist %}
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3 mx-1 px-0">
+                        <div class="card-body mx-0 px-1">
+                            <div class="image-container pb-2">
+                                <a href="{% url 'book_detail' slug=book.object.slug %}">
+                                    {% if book.front_cover %}
+                                    <img class="card-img-top" src=" {{ book.featured_image.url }}"
+                                        alt="{{ book.title }}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                        alt="placeholder image">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <a href="{% url 'book_detail' slug=book.object.slug %}"
+                                class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                            <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mt-auto">
+                <a href="{% url 'profile_wishlist' username=user.username %}" class="button">View Your Wishlist</a>
+            </div>
+            {% else %}
+            <p>Nothing to see here. Add books to your wishlist:</p>
+            <div class="mt-auto">
+                <a href="{% url 'book_overview' %}" class="button">Add To Wishlist</a>
+            </div>
+            {% endif %}
         </div>
     </div>
+</div>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm 6 justify-content-center">
+        <!-- Currently reading -->
+        <div class="col-12 col-lg-6 py-3 text-center d-flex flex-column">
             <h3>Currently Reading</h3>
+            {% if book_status_reading %}
+            <div class="row right-border-no-mobile">
+                {% for book in book_status_reading %}
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3 mx-1 px-0">
+                        <div class="card-body mx-0 px-1">
+                            <div class="image-container pb-2">
+                                <a href="{% url 'book_detail' slug=book.object.slug %}">
+                                    {% if 'placeholder' not in book.object.front_cover.url %}
+                                    <img class="card-img-top" src=" {{ book.object.front_cover.url }}"
+                                        alt="{{ book.object.title }}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                        alt="placeholder image">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <a href="{% url 'book_detail' slug=book.object.slug %}"
+                                class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                            <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>Nothing to see here. Add your current book:</p>
+            <div class="mt-auto">
+                <a href="{% url 'book_overview' %}" class="button">Add Your Current Read</a>
+            </div>
+            {% endif %}
         </div>
-        <div class="col-12 col-sm 6 justify-content-center">
-            <h3>DNF's Books</h3>
+        <div class="not-on-laptop">
+            <div class="d-flex justify-content-center not-on-laptop">
+                <hr>
+            </div>
+        </div>
+        <!-- DNF's books -->
+        <div class="col-12 col-lg-6 py-2 text-center d-flex flex-column">
+            <h3>DNF'd Books</h3>
+            {% if book_status_dnf %}
+            <div class="row">
+                {% for book in book_status_dnf %}
+                <div class="col-6 col-md-3">
+                    <div class="card mb-3 mx-1 px-0">
+                        <div class="card-body mx-0 px-1">
+                            <div class="image-container pb-2">
+                                <a href="{% url 'book_detail' slug=book.object.slug %}">
+                                    {% if book.front_cover %}
+                                    <img class="card-img-top" src=" {{ book.featured_image.url }}"
+                                        alt="{{ book.title }}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                        alt="placeholder image">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <a href="{% url 'book_detail' slug=book.object.slug %}"
+                                class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                            <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mt-auto">
+                <a href="{% url 'profile_wishlist' username=user.username %}" class="button">View Your Wishlist</a>
+            </div>
+            {% else %}
+            <p>Nothing to see here. You've not DNF'd a book yet!</p>
+            {% endif %}
         </div>
     </div>
- </div>
-<hr>
+</div>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
 <div class="text-center">
     <h3>Choose your next book or see all the reviews:</h3>
     <div class="container-fluid">

@@ -153,6 +153,12 @@ nav form {
     padding: .375rem .75rem;
 }
 
+/* Profile stat box style */
+.stat-box {
+    border: 1px double var(--main-highlight);
+    box-shadow: 3px 3px 10px 1px var(--main-highlight);
+}
+
 
 
 /* Footer styles */
@@ -202,6 +208,11 @@ footer a {
     #id_genres {
         display: grid;
         grid-template-columns: auto auto auto auto;
+    }
+
+    /* Profile styles */
+    .not-on-laptop {
+        display: none;
     }
 }
 

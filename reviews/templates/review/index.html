@@ -9,12 +9,12 @@
 </div>
 <!-- User currently reading and wishlist -->
 <div class="container-fluid py-2">
-    <div class="row justify-content-around">
+    <div class="row">
         <!-- Currently reading -->
-        <div class="col-12 col-lg-6 py-2 text-center right-border-no-mobile d-flex flex-column">
+        <div class="col-12 col-lg-6 py-2 text-center d-flex flex-column">
             <h3>Currently Reading</h3>
             {% if book_status_currently_reading %}
-            <div class="row justify-content-center">
+            <div class="row justify-content-center right-border-no-mobile">
                 {% for book in book_status_currently_reading %}
                 <div class="col-6 col-md-3">
                     <div class="card mb-3 mx-1 px-0">
@@ -52,7 +52,7 @@
         <div class="col-12 col-lg-6 py-2 text-center d-flex flex-column">
             <h3>Wishlist</h3>
             {% if book_status_wishlist %}
-            <div class="row justify-content-center">
+            <div class="row">
                 {% for book in book_status_wishlist %}
                 <div class="col-6 col-md-3">
                     <div class="card mb-3 mx-1 px-0">

@@ -58,11 +58,6 @@ class BookSearch(ListView):
             Q(title__icontains=query) | Q(author__author__icontains=query)
         ).distinct()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["query"] = self.request.GET.get("q")
-        return context
-
 
 def book_detail(request, slug):
     """

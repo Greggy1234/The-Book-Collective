@@ -70,7 +70,7 @@ class Book(models.Model):
         ordering = ["title"]
 
     def avg_rating(self):
-        average = self.book_rating.aggregate(Avg('rating'))[0]
+        average = self.book_rating.aggregate(Avg('rating'))['rating__avg']
         if not average:
             return None
         average_round = round(average, 2)
