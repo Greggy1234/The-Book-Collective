@@ -110,6 +110,10 @@ hr {
     font-weight: normal;
 }
 
+.white-background {
+    background-color: white;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -153,12 +157,15 @@ nav form {
     padding: .375rem .75rem;
 }
 
-/* Profile stat box style */
+/* Profile stat box styles */
 .stat-box {
     border: 1px double var(--main-highlight);
     box-shadow: 3px 3px 10px 1px var(--main-highlight);
 }
 
+.p-stat-box {
+    font-size: 4rem;
+}
 
 
 /* Footer styles */

@@ -10,20 +10,46 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+            <h2 class="mt-2">Latest Read</h2>
+            {% if book_status_read %}
             {% for book in book_status_read %}
             {% if forloop.counter == 1 %}
-            <p>{{ book.object.title }}</p>
+            <div class="card mb-3 mx-1 px-0">
+                <div class="card-body mx-0 px-1">
+                    <div class="image-container pb-2">
+                        <a href="{% url 'book_detail' slug=book.object.slug %}">
+                            {% if 'placeholder' not in book.object.front_cover.url %}
+                            <img class="card-img-top" src=" {{ book.object.front_cover.url }}"
+                                alt="{{ book.object.title }}">
+                            {% else %}
+                            <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
+                                alt="placeholder image">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <a href="{% url 'book_detail' slug=book.object.slug %}"
+                        class="card-title p-small bold book-link-text">{{ book.object.title }}</a>
+                    <p class="card-text p-small text-center">by {{book.object.author.all|join:", " }}</p>
+                </div>
+            </div>
             {% endif %}
             {% endfor %}
+            {% endif %}
         </div>
         <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
-            <p>{{ book_read_count }}</p>
-        </div>
-        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-2">
-            {% if user_avg_rating %}
-            <p>{{ user_avg_rating }}</p>
+            <h2 class="mt-2">Books Read</h2>
+            {% if book_read_count %}
+            <p class="p-stat-box mt-4">{{ book_read_count }}</p>
             {% else %}
-            <p>Nothing</p>
+            <p class="p-stat-box mt-4">0</p>
+            {% endif %}
+        </div>
+        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+            <h2 class="mt-2">Avg. Rating</h2>
+            {% if user_avg_rating %}
+            <p class="p-stat-box mt-4">{{ user_avg_rating }}</p>
+            {% else %}
+            <p class="p-stat-box mt-4">No ratings yet</p>
             {% endif %}
         </div>
     </div>
@@ -35,7 +61,7 @@
         <div class="col-12 col-lg-6 py-3 text-center d-flex flex-column">
             <h3>Books Read</h3>
             {% if book_status_read %}
-            <div class="row right-border-no-mobile">
+            <div class="row right-border-no-mobile justify-content-center">
                 {% for book in book_status_read %}
                 <div class="col-6 col-md-3">
                     <div class="card mb-3 mx-1 px-0">
@@ -78,7 +104,7 @@
         <div class="col-12 col-lg-6 py-3 text-center d-flex flex-column">
             <h3>{{ user.username }} Wishlist</h3>
             {% if book_status_wishlist %}
-            <div class="row">
+            <div class="row justify-content-center">
                 {% for book in book_status_wishlist %}
                 <div class="col-6 col-md-3">
                     <div class="card mb-3 mx-1 px-0">
@@ -123,7 +149,7 @@
         <div class="col-12 col-lg-6 py-3 text-center d-flex flex-column">
             <h3>Currently Reading</h3>
             {% if book_status_reading %}
-            <div class="row right-border-no-mobile">
+            <div class="row right-border-no-mobile justify-content-center">
                 {% for book in book_status_reading %}
                 <div class="col-6 col-md-3">
                     <div class="card mb-3 mx-1 px-0">
@@ -163,7 +189,7 @@
         <div class="col-12 col-lg-6 py-2 text-center d-flex flex-column">
             <h3>DNF'd Books</h3>
             {% if book_status_dnf %}
-            <div class="row">
+            <div class="row justify-content-center">
                 {% for book in book_status_dnf %}
                 <div class="col-6 col-md-3">
                     <div class="card mb-3 mx-1 px-0">
@@ -199,14 +225,14 @@
 <div class="d-flex justify-content-center">
     <hr>
 </div>
-<div class="text-center">
-    <h3>Choose your next book or see all the reviews:</h3>
+<div class="text-center pb-4">
+    <h3 class="pb-3">Choose your next book or see all the reviews:</h3>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 justify-content-center">
-                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a class="button" aria-label="Link to go to the all reviews page"
                     href="{% url 'book_overview' %}">All Books</a>
-                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
+                <a class="button" aria-label="Link to go to the all reviews page"
                     href="{% url 'all_reviews' %}">All Reviews</a>
             </div>
         </div>
