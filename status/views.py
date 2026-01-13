@@ -77,11 +77,11 @@ def books_read(request, username):
         An instance of :model:`auth.User`
     """
     user = get_object_or_404(User, username=username)
-    book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
+    book_status = Status.objects.select_related("object", "author").filter(author=user).order_by("-created_on")
     books_read = book_status.filter(status=3)
 
     books_read_paginator = Paginator(books_read, 12)
-    books_read_page_number = request.Get.get("page")
+    books_read_page_number = request.GET.get("page")
     books_read_page_obj = books_read_paginator.get_page(books_read_page_number)
 
     return render(
@@ -107,11 +107,11 @@ def books_wishlist(request, username):
         An instance of :model:`auth.User`
     """
     user = get_object_or_404(User, username=username)
-    book_status = Status.objects.select_related("object", "author").filter(author=user, status=3).order_by("-created_on")
+    book_status = Status.objects.select_related("object", "author").filter(author=user).order_by("-created_on")
     books_wish = book_status.filter(status=1)
 
     books_wish_paginator = Paginator(books_wish, 12)
-    books_wish_page_number = request.Get.get("page")
+    books_wish_page_number = request.GET.get("page")
     books_wish_page_obj = books_wish_paginator.get_page(books_wish_page_number)
 
     return render(

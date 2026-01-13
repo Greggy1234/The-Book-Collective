@@ -31,7 +31,7 @@ class Status(models.Model):
             models.UniqueConstraint(fields=["object", "author"], name="unique_status")
         ]
 
-    def save(self, *args, **kwargs):
+    def save(self, **kwargs):
         if self.status == 2 and not self.started_on:
             self.started_on = timezone.now()
 
@@ -41,7 +41,7 @@ class Status(models.Model):
         elif self.status == 3 and not self.finished_on:
             self.finished_on = timezone.now()
 
-        super().save(*args, **kwargs)
+        super().save(**kwargs)
 
     def __str__(self):
         return f'Status of {self.object.title} for {self.author.username}: {self.get_status_display()}'
