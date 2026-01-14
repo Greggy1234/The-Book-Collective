@@ -77,6 +77,10 @@ p {
     font-size: 1rem;
 }
 
+.header-link-text {
+    color: var(--main-highlight);
+}
+
 .book-link-text {
     color: var(--main-text);
 }
@@ -97,6 +101,16 @@ hr {
 }
 
 .image-container img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.book-info-image-container {
+    height: 250px;
+}
+
+.book-info-image-container img {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
@@ -157,7 +171,7 @@ nav form {
     padding: .375rem .75rem;
 }
 
-/* Profile stat box styles */
+/* Profile styles */
 .stat-box {
     border: 1px double var(--main-highlight);
     box-shadow: 3px 3px 10px 1px var(--main-highlight);

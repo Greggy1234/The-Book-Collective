@@ -142,9 +142,9 @@ def add_to_wishlist(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
-        status, created = Status.get_or_create(
+        status, created = Status.objects.get_or_create(
             object=book,
-            author=request.User,
+            author=request.user,
             defaults={'status': 1}
         )
         if created:
@@ -175,9 +175,9 @@ def add_to_currently_reading(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
-        status, created = Status.get_or_create(
+        status, created = Status.objects.get_or_create(
             object=book,
-            author=request.User,
+            author=request.user,
             defaults={'status': 2}
         )
         if created:
@@ -208,9 +208,9 @@ def add_to_read(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
-        status, created = Status.get_or_create(
+        status, created = Status.objects.get_or_create(
             object=book,
-            author=request.User,
+            author=request.user,
             defaults={'status': 3}
         )
         if created:
@@ -241,9 +241,9 @@ def add_to_dnf(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     if request.method == "POST":
-        status, created = Status.get_or_create(
+        status, created = Status.objects.get_or_create(
             object=book,
-            author=request.User,
+            author=request.user,
             defaults={'status': 4}
         )
         if created:

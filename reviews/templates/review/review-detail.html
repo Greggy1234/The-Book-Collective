@@ -4,25 +4,84 @@
 {% block content %}
 <!-- reviews-details.hmtl code starts here -->
 <div class="py-3 text-center">
-    <h1>Review for {{ review.object.title }}</h1>
+    <h1>Review of {{ review.object.title }}</h1>
+    <h2>Written by <a href="{% url 'profile_page' username=review.author.username %}" class="header-link-text">
+            {{ review.author }}</a></h2>
 </div>
 <!-- Review of book -->
-<P>Nothing to see here</P>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10 col-sm-8">
+            <p>{{ review.review }}</p>
+            {% if rating %}
+            <p class="p-small bold">Rating: {{ rating.rating }}/5</p>
+            {% else %}
+            <p class="p-small bold">No rating given</p>
+            {% endif %}
+            {% if review.author == user %}
+            <div class="d-flex mb-3">
+                <button class="button-2 me-3 border-0">Edit review</button>
+                <button class="button-2 border-0">Delete review</button>
+            </div>
+            <div class="d-flex">
+                {% if rating %}
+                <button class="button-2 me-3 border-0">Edit rating</button>
+                <button class="button-2 border-0">Delete rating</button>
+                {% else %}
+                <button class="button-2 border-0">Add rating</button>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 <div class="d-flex justify-content-center">
     <hr>
 </div>
-<div class="text-center">
-    <h3>Choose your next book or see all the reviews:</h3>
-    <div class="container-fluid">
+<div class="py-3 text-center">
+    <h3>{{ review.object.title }} Info</h3>
+    <div class="container">
         <div class="row">
-            <div class="col-4 justify-content-center">
-                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
-                    href="{% url 'book_overview' %}">All Books</a>
-                <a class="btn btn-primary" aria-label="Link to go to the all reviews page"
-                    href="{% url 'all_reviews' %}">All Reviews</a>
+            <div class="col-12 col-sm-6 py-4">
+                <div class="book-info-image-container">
+                    <a href="{% url 'book_detail' slug=review.object.slug %}">
+                        {% if book.front_cover %}
+                        <img class="card-img-top" src=" {{ review.object.featured_image.url }}" alt="{{ review.object.title }}">
+                        {% else %}
+                        <img class="card-img-top" src="{% static 'images/placeholder.webp' %}" alt="placeholder image">
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 text-center text-sm-start">
+                <p><span class="bold">Author{% if review.object.author.all.count > 1 %}s{% endif %}</span>:
+                    {{review.object.author.all|join:", " }}</p>
+                <p><span class="bold">Genre{% if review.object.genres.all.count > 1 %}s{% endif %}</span>:
+                    {{review.object.genres.all|join:", " }}</p>
+                <p><span class="bold">First Published</span>: {{ review.object.published }}</p>
+                <p><span class="bold">Language</span>: {{ review.object.language }}</p>
+                <p><span class="bold">No. of pages</span>: {{ review.object.pages}}</p>
+                <a href="{% url 'book_detail' slug=review.object.slug %}" class="button">View Book</a>
             </div>
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-center">
+    <hr>
+</div>
+<div class="text-center pb-4">
+    <h3 class="pb-3">Choose your next book or see all the reviews:</h3>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All
+                    Books</a>
+                <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All
+                    Reviews</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- reviews-details.hmtl code ends here -->
 {% endblock content %}
