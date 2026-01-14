@@ -37,31 +37,43 @@
         </div>
         <div class="row mb-2">
             <div class="col-12 mb-2">
-                {% if user_status.status == 1 %}
+                {% if user_status and user_status.status == 1 %}
                 <button class="button-2 me-3 border-0">Remove from wishlist</button>
                 {% else %}
-                <button class="button-2 me-3 border-0">Add to wishlist</button>
+                <form method="POST" id="add_to_wishlist" action="{% url 'add_to_wishlist' username=request.user.username slug=book.slug %}">
+                    <button class="button-2 me-3 border-0" type="submit">Add to wishlist</button>
+                    {% csrf_token %}
+                </form>
                 {% endif %}
             </div>
             <div class="col-12 mb-2">
-                {% if user_status.status == 2 %}
+                {% if user_status and user_status.status == 2 %}
                 <button class="button-2 me-3 border-0">Remove from currently reading</button>
                 {% else %}
-                <button class="button-2 me-3 border-0">Add to currently reading</button>
+                <form method="POST" id="add_to_currently_reading" action="{% url 'add_to_currently_reading' username=request.user.username slug=book.slug %}">
+                    <button class="button-2 me-3 border-0" type="submit">Add to currently reading</button>
+                    {% csrf_token %}
+                </form>
                 {% endif %}
             </div>
             <div class="col-12 mb-2">
-                {% if user_status.status == 3 %}
+                {% if user_status and user_status.status == 3 %}
                 <button class="button-2 me-3 border-0">Remove from read</button>
                 {% else %}
-                <button class="button-2 me-3 border-0">Add to read</button>
+                <form method="POST" id="add_to_read" action="{% url 'add_to_read' username=request.user.username slug=book.slug %}">
+                    <button class="button-2 me-3 border-0" type="submit">Add to read</button>
+                    {% csrf_token %}
+                </form>
                 {% endif %}
             </div>
             <div class="col-12 mb-2">
-                {% if user_status.status == 4 %}
-                <button class="button-2 me-3 border-0">Remove from DNF'd</button>
+                {% if user_status and user_status.status == 4 %}
+                <button class="button-2 me-3 border-0">Remove from DNF</button>
                 {% else %}
-                <button class="button-2 me-3 border-0">Add to DNF'd</button>
+                <form method="POST" id="add_to_dnf" action="{% url 'add_to_dnf' username=request.user.username slug=book.slug %}">
+                    <button class="button-2 me-3 border-0" type="submit">Add to DNF</button>
+                    {% csrf_token %}
+                </form>
                 {% endif %}
             </div>
         </div>

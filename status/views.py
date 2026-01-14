@@ -130,7 +130,7 @@ def books_wishlist(request, username):
     )
 
 
-def add_to_wishlist(request, slug):
+def add_to_wishlist(request, username, slug):
     """
     Adds a book to the users wishlist
 
@@ -163,7 +163,7 @@ def add_to_wishlist(request, slug):
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 
 
-def add_to_currently_reading(request, slug):
+def add_to_currently_reading(request, username,slug):
     """
     Adds a book to the users currently reading list
 
@@ -196,7 +196,7 @@ def add_to_currently_reading(request, slug):
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 
 
-def add_to_read(request, slug):
+def add_to_read(request, username, slug):
     """
     Adds a book to the users read list
 
@@ -229,7 +229,7 @@ def add_to_read(request, slug):
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 
 
-def add_to_dnf(request, slug):
+def add_to_dnf(request, username, slug):
     """
     Adds a book to the users dnf list
 
