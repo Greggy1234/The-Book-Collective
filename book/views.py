@@ -64,6 +64,10 @@ def book_detail(request, slug):
     Displays an individual :model:`book.Book`
 
     **Context**
+    ``add_review_form
+        An instance of :form:`reviews.ReviewForm`
+    ``add_rating_form``
+        An instance of :form:`reviews.RatingForm`
     ``book``
         An instance of :model:`book.Book`
     ``review``

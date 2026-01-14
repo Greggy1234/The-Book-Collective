@@ -124,7 +124,7 @@
                 </div>
             </div>
             {% empty %}
-            <p>No reviews yet</p>
+            <p class="text-center">No reviews yet</p>
             {% endfor %}
         </div>
         <div class="col-12 col-md-4">
@@ -133,7 +133,7 @@
             <p>{{ rating.author.username}}'s rating:</p>
             <p class="bold">{{ rating.rating }}/5</p>
             {% empty %}
-            <p>No ratings yet</p>
+            <p class="text-center">No ratings yet</p>
             {% endfor %}
         </div>
     </div>
@@ -145,7 +145,7 @@
     <h3 class="pb-3">Choose your next book or see all the reviews:</h3>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-12">
                 <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'book_overview' %}">All
                     Books</a>
                 <a class="button" aria-label="Link to go to the all reviews page" href="{% url 'all_reviews' %}">All
