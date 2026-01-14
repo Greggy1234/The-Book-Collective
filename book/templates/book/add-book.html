@@ -12,7 +12,7 @@
 <div class="container pb-4">
     <div class="row">
         <div class="col-12 justify-content-center">
-            <form id="add_book_form" method="POST">
+            <form action="{% url 'add_book' %}" id="add_book_form" method="POST">
                 <p class="p-small margin-bottom-point5">Author(s)* (you can select multiple)</p>
                 {{ add_book_form.author }}
                 <p class="p-small margin-bottom-point5">If you can't find the author in the list, add it below. The page
@@ -45,11 +45,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addAuthorModal">Add an Author</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close ms-auto border-0 bg-white" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
-            <form id="add_author_form" method="POST">
+            <form action="{% url 'add_author' %}" id="add_author_form" method="POST">
                 <div class="modal-body">
                     {{ add_author_form | crispy }}
                     {% csrf_token %}
