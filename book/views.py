@@ -95,10 +95,15 @@ def book_detail(request, slug):
     user_rating = book.book_rating.filter(object=book, author=request.user).first()
     user_status = book.book_status.filter(object=book, author=request.user).first()
 
+    add_review_form = ReviewForm()
+    add_rating_form = RatingForm()
+
     return render(
         request,
         "book/book-detail.html",
         {
+            "add_review_form": add_review_form,
+            "add_rating_form": add_rating_form,
             "book": book,
             "rating": rating,
             "review": review,
@@ -191,7 +196,7 @@ def add_review(request, slug):
 def add_rating(request, slug):
     """
     Adds a users rating to :model:`reviews.Rating`
-    
+
     **Context**
     ``book``
         An instance of :model:`book.Book`

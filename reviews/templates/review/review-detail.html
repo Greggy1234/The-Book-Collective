@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <!-- reviews-details.hmtl code starts here -->
@@ -45,8 +46,8 @@
             <div class="col-12 col-sm-6 py-4">
                 <div class="book-info-image-container">
                     <a href="{% url 'book_detail' slug=review.object.slug %}">
-                        {% if book.front_cover %}
-                        <img class="card-img-top" src=" {{ review.object.featured_image.url }}" alt="{{ review.object.title }}">
+                        {% if 'placeholder' not in book.front_cover.url %}
+                        <img class="card-img-top" src=" {{ review.object.front_cover.url }}" alt="{{ review.object.title }}">
                         {% else %}
                         <img class="card-img-top" src="{% static 'images/placeholder.webp' %}" alt="placeholder image">
                         {% endif %}

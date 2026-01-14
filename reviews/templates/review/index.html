@@ -59,9 +59,8 @@
                         <div class="card-body mx-0 px-1">
                             <div class="image-container pb-2">
                                 <a href="{% url 'book_detail' slug=book.object.slug %}">
-                                    {% if book.front_cover %}
-                                    <img class="card-img-top" src=" {{ book.featured_image.url }}"
-                                        alt="{{ book.title }}">
+                                    {% if 'placeholder' not in book.front_cover.url %}
+                                    <img class="card-img-top" src=" {{ book.front_cover.url }}" alt="{{ book.title }}">
                                     {% else %}
                                     <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
                                         alt="placeholder image">
