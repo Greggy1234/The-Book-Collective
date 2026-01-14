@@ -12,7 +12,7 @@
         <div class="col-md-8 mt-3 offset-md-2">
             <h3>{% trans "Sign In" %}</h3>
 
-            <p>{% blocktrans %}Welcome back to The Book Collective. To access this site, please log in. If
+            <p>{% blocktrans %}Welcome to The Book Collective. To access this site, please log in. If
                 you
                 have not created an account yet, then you can <a class="link" href="{{ signup_url }}">sign up here</a>
                 .{% endblocktrans %}</p>
@@ -26,7 +26,7 @@
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-signup right" type="submit">{% trans "Sign In" %}</button>
+                <button class="btn btn-signup right button" type="submit">{% trans "Sign In" %}</button>
             </form>
         </div>
     </div>

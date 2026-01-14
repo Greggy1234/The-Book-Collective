@@ -5,7 +5,7 @@
 {% url 'all_reviews' as review_url %}
 {% url 'profile_page' as profile_url %}
 {% url 'features' as features_url %}
-{% url 'acount_login' as login_url %}
+{% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
 
@@ -38,8 +38,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                {% if user.is_authenticated %}
                 <ul class="navbar-nav mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == home_url %}active" aria-current="page{% endif %}"
                             href="{% url 'homepage' %}">Home</a>
@@ -75,10 +75,12 @@
                     </li>
                     {% endif %}
                 </ul>
+                {% if user.is_authenticated %}
                 <form action="{% url 'book_search' %}" method="GET" class="flex-row ms-auto">
                     <input class="form-control" type="search" name="q" placeholder="Search for books">
                     <button type="submit" class="px-4 button">Search</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </nav>
