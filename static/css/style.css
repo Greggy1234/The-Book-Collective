@@ -137,6 +137,10 @@ hr {
     margin-bottom: .5rem;
 }
 
+.width-100 {
+    width: 100px;
+}
+
 /* Navbar styles */
 .navbar {
     border-bottom: 2px solid var(--secondary-highlight);
