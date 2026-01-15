@@ -1,3 +1,4 @@
+// These functions are for the book_detail.html page
 // Button element event listeners
 // Once the DOM is loaded, the functions here can then follow
 document.addEventListener("DOMContentLoaded", function () {
@@ -8,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 editReview();
             } else if (button.id == "edit-rating-book-page-button") {
                 editRating();
+            } else if (button.id == "change-status-button") {
+                showStatusButtons();
             }
         });
     }
@@ -44,4 +47,14 @@ function editRating() {
     preRating.classList.add("d-none");
     deleteRatingButton.classList.add("d-none");
     ratingFormContainer.classList.remove("d-none");
+}
+
+/**
+ * This is the function that shows the different status buttons
+ */
+function showStatusButtons() {
+    const changeStatusButtton = document.getElementById("change-status-button");
+    const statusButton = document.getElementById("status-buttons");
+    changeStatusButtton.classList.add("d-none");
+    statusButton.classList.remove("d-none");
 }
