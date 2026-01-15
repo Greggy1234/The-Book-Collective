@@ -124,7 +124,7 @@
                 </form>
             </div>
             <button class="button-2 me-3 border-0" id="edit-review-book-page-button">Edit review</button>
-            <button class="button-2 me-3 border-0" id="delete-review-book-page-button" data-bs-toggle="modal"
+            <button class="button-2 me-3 border-0 delete-red" id="delete-review-book-page-button" data-bs-toggle="modal"
                 data-bs-target="#deleteReviewBookPageModal">Delete review</button>
             {% else %}
             <form id="add_review_form" method="POST" action="{% url 'add_review' slug=book.slug %}">
@@ -145,7 +145,7 @@
                 </form>
             </div>
             <button class="button-2 me-3 border-0" id="edit-rating-book-page-button">Edit rating</button>
-            <button class="button-2 me-3 border-0" id="delete-rating-book-page-button" data-bs-toggle="modal"
+            <button class="button-2 me-3 border-0 delete-red" id="delete-rating-book-page-button" data-bs-toggle="modal"
                 data-bs-target="#deleteRatingBookPageModal">Delete rating</button>
             {% else %}
             <form id="add_rating_form" method="POST" action="{% url 'add_rating' slug=book.slug %}">

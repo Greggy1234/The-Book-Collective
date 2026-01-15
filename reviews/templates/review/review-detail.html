@@ -13,22 +13,40 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-10 col-sm-8">
-            <p>{{ review.review }}</p>
-            {% if rating %}
-            <p class="p-small bold">Rating: {{ rating.rating }}/5</p>
-            {% else %}
-            <p class="p-small bold">No rating given</p>
-            {% endif %}
+            <div id="review-rating-review-page">
+                <p id="review-text-review-page">{{ review.review }}</p>
+                {% if rating %}
+                <p class="p-small bold">Rating: {{ rating.rating }}/5</p>
+                {% else %}
+                <p class="p-small bold">No rating given</p>
+                {% endif %}
+            </div>
+            <div id="hidden-edit-review-form-review-page" class="d-none">
+                <form id="add_review_form" method="POST" action="{% url 'edit_review' slug=review.object.slug %}">
+                    {{ add_review_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" class="button">Update Review</button>
+                </form>
+            </div>
+            <div id="hidden-edit-rating-form-review-page" class="d-none">
+                <form id="add_rating_form" method="POST" action="{% url 'edit_rating' slug=review.object.slug %}">
+                    {{ add_rating_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" class="button">Update Review</button>
+                </form>
+            </div>
             {% if review.author == user %}
-            <div class="d-flex mb-3">
-                <button class="button-2 me-3 border-0 width-100">Edit review</button>
-                <button class="button-2 border-0 width-100" data-bs-toggle="modal"
+            <div class="d-flex mb-3" id="review-edit-delete-review-page">
+                <button class="button-2 me-3 border-0 width-100" id="edit-review-review-page-button">Edit
+                    review</button>
+                <button class="button-2 border-0 width-100 delete-red" data-bs-toggle="modal"
                     data-bs-target="#deleteReviewReviewPageModal">Delete review</button>
             </div>
-            <div class="d-flex">
+            <div class="d-flex" id="rating-edit-delete-review-page">
                 {% if rating %}
-                <button class="button-2 me-3 border-0 width-100">Edit rating</button>
-                <button class="button-2 border-0 width-100" data-bs-toggle="modal"
+                <button class="button-2 me-3 border-0 width-100" id="edit-rating-review-page-button">Edit
+                    rating</button>
+                <button class="button-2 border-0 width-100 delete-red" data-bs-toggle="modal"
                     data-bs-target="#deleteRatingReviewPageModal">Delete rating</button>
                 {% else %}
                 <button type="button" class="button-2 margin-bottom-point5 border-0 width-100" data-bs-toggle="modal"
@@ -169,3 +187,7 @@
 </div>
 <!-- reviews-details.hmtl code ends here -->
 {% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/reviews.js' %}"></script>
+{% endblock %}

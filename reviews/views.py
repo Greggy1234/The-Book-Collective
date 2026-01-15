@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Review, Rating
-from .forms import RatingForm
+from .forms import RatingForm, ReviewForm
 from status.models import Status
 
 
@@ -81,6 +81,8 @@ def review_detail(request, slug):
     **Context**
     ``add_rating_form``
         An instance of :form:`reviews.RatingForm`
+    ``add_review_form``
+        An instance of :form:`reviews.ReviewForm`
     ``review``
         An instance of :model:`reviews.Review`
     ``rating``
@@ -93,12 +95,14 @@ def review_detail(request, slug):
     rating = Rating.objects.all().filter(author=review.author, object=review.object).first()
 
     add_rating_form = RatingForm()
+    add_review_form = ReviewForm()
 
     return render(
         request,
         "review/review-detail.html",
         {
             "add_rating_form": add_rating_form,
+            "add_review_form": add_review_form,
             "review": review,
             "rating": rating
         }

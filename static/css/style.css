@@ -36,6 +36,11 @@
     font-size: 1rem;
 }
 
+
+.delete-red {
+    background-color: #CD5C5C !important;
+}
+
 /* Global styles */
 html {
     background-color: #F2F0EF;
