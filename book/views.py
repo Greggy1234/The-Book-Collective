@@ -209,6 +209,9 @@ def add_rating(request, slug):
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
+        user_review = book.book_review.filter(author=request.user).first()
+        if user_review:
+            review_slug = user_review.slug
         rating_form = RatingForm(data=request.POST)
         if rating_form.is_valid():
             rating = rating_form.save(commit=False)
@@ -220,7 +223,10 @@ def add_rating(request, slug):
                 f'Thank you for you rating of {book.title}'
             )
 
-    return HttpResponseRedirect(reverse('book_detail', args=[slug]))
+    if '/books/' in request.META['HTTP_REFERER']:
+        return HttpResponseRedirect(reverse('book_detail', args=[slug]))
+    else:
+        return HttpResponseRedirect(reverse('review_detail', args=[review_slug]))
 
 
 def edit_review(request, slug):

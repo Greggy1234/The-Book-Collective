@@ -26,10 +26,11 @@
             </div>
             <div class="d-flex">
                 {% if rating %}
-                <button class="button-2 me-3 border-0">Edit rating</button>
+                <button class="button-2 me-3 border-0 pe-2">Edit rating</button>
                 <button class="button-2 border-0">Delete rating</button>
                 {% else %}
-                <button class="button-2 border-0">Add rating</button>
+                <button type="button" class="button-2 margin-bottom-point5 border-0" data-bs-toggle="modal"
+                    data-bs-target="#addRatingReviewPageModal">Add Rating</button>
                 {% endif %}
             </div>
             {% endif %}
@@ -39,6 +40,7 @@
 <div class="d-flex justify-content-center">
     <hr>
 </div>
+<!-- Book info -->
 <div class="py-3 text-center">
     <h3>{{ review.object.title }} Info</h3>
     <div class="container">
@@ -47,7 +49,8 @@
                 <div class="book-info-image-container">
                     <a href="{% url 'book_detail' slug=review.object.slug %}">
                         {% if 'placeholder' not in book.front_cover.url %}
-                        <img class="card-img-top" src=" {{ review.object.front_cover.url }}" alt="{{ review.object.title }}">
+                        <img class="card-img-top" src=" {{ review.object.front_cover.url }}"
+                            alt="{{ review.object.title }}">
                         {% else %}
                         <img class="card-img-top" src="{% static 'images/placeholder.webp' %}" alt="placeholder image">
                         {% endif %}
@@ -83,6 +86,27 @@
         </div>
     </div>
 </div>
-
+<!-- Add rating form modal -->
+<div class="modal fade" id="addRatingReviewPageModal" tabindex="-1" role="dialog" aria-labelledby="Add Author form modal"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAuthorModal">Add rating</h5>
+                <button type="button" class="btn-close ms-auto border-0 bg-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form action="{% url 'add_rating' slug=review.object.slug %}" id="add_rating_form_review_page" method="POST">
+                <div class="modal-body">
+                    {{ add_rating_form | crispy }}
+                    {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="button">Add Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- reviews-details.hmtl code ends here -->
 {% endblock content %}
