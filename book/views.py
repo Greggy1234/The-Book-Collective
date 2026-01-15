@@ -191,7 +191,7 @@ def add_review(request, slug):
             review.save()
             messages.add_message(
                 request, messages.SUCCESS,
-                f'Thank you for you review of {book.title}'
+                f'Thank you for your review of {book.title}'
             )
 
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
@@ -220,7 +220,7 @@ def add_rating(request, slug):
             rating.save()
             messages.add_message(
                 request, messages.SUCCESS,
-                f'Thank you for you rating of {book.title}'
+                f'Thank you for your rating of {book.title}'
             )
 
     if '/books/' in request.META['HTTP_REFERER']:
@@ -305,17 +305,13 @@ def delete_review(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     review = get_object_or_404(Review, object=book, author=request.user)
-    review_slug = review.slug
     if review.author == request.user:
         review.delete()
         messages.add_message(request, messages.SUCCESS, 'Your review has been deleted!')
     else:
         messages.add_message(request, messages.ERROR, 'You can only delete your own review!')
 
-    if '/books/' in request.META['HTTP_REFERER']:
-        return HttpResponseRedirect(reverse('book_detail', args=[slug]))
-    else:
-        return HttpResponseRedirect(reverse('review_detail', args=[review_slug]))
+    return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 
 
 def delete_rating(request, slug):

@@ -22,14 +22,16 @@
             {% if review.author == user %}
             <div class="d-flex mb-3">
                 <button class="button-2 me-3 border-0 width-100">Edit review</button>
-                <button class="button-2 border-0 width-100">Delete review</button>
+                <button class="button-2 border-0 width-100" data-bs-toggle="modal"
+                    data-bs-target="#deleteReviewReviewPageModal">Delete review</button>
             </div>
             <div class="d-flex">
                 {% if rating %}
                 <button class="button-2 me-3 border-0 width-100">Edit rating</button>
-                <button class="button-2 border-0 width-100">Delete rating</button>
+                <button class="button-2 border-0 width-100" data-bs-toggle="modal"
+                    data-bs-target="#deleteRatingReviewPageModal">Delete rating</button>
                 {% else %}
-                <button type="button" class="button-2 margin-bottom-point5 border-0 width-88" data-bs-toggle="modal"
+                <button type="button" class="button-2 margin-bottom-point5 border-0 width-100" data-bs-toggle="modal"
                     data-bs-target="#addRatingReviewPageModal">Add Rating</button>
                 {% endif %}
             </div>
@@ -87,22 +89,79 @@
     </div>
 </div>
 <!-- Add rating form modal -->
-<div class="modal fade" id="addRatingReviewPageModal" tabindex="-1" role="dialog" aria-labelledby="Add Rating form modal"
-    aria-hidden="true">
+<div class="modal fade" id="addRatingReviewPageModal" tabindex="-1" role="dialog"
+    aria-labelledby="Add Rating form modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addRatingReviewPageModal">Add rating</h5>
-                <button type="button" class="btn-close ms-auto border-0 bg-white" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn-close ms-auto border-0 bg-white" data-bs-dismiss="modal"
+                    aria-label="Close">
                 </button>
             </div>
-            <form action="{% url 'add_rating' slug=review.object.slug %}" id="add_rating_form_review_page" method="POST">
+            <form action="{% url 'add_rating' slug=review.object.slug %}" id="add_rating_form_review_page"
+                method="POST">
                 <div class="modal-body">
                     {{ add_rating_form | crispy }}
                     {% csrf_token %}
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="button">Add Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete review form modal -->
+<div class="modal fade" id="deleteReviewReviewPageModal" tabindex="-1" role="dialog"
+    aria-labelledby="Add Rating form modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteReviewReviewPageModal">Delete rating</h5>
+                <button type="button" class="btn-close ms-auto border-0 bg-white" data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <form action="{% url 'delete_review' slug=review.object.slug %}" id="delete_review_form_review_page"
+                method="POST">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete you review?
+                        <br>
+                        This action cannot be undone and you will be re-directed back to the {{ review.object.title }}
+                        page.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="button">Delete</button>
+                    {% csrf_token %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete rating form modal -->
+<div class="modal fade" id="deleteRatingReviewPageModal" tabindex="-1" role="dialog"
+    aria-labelledby="Add Rating form modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRatingReviewPageModal">Delete rating</h5>
+                <button type="button" class="btn-close ms-auto border-0 bg-white" data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <form action="{% url 'delete_rating' slug=review.object.slug %}" id="delete_rating_form_review_page"
+                method="POST">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete you rating?
+                        <br>
+                        This action cannot be undone.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="button">Delete</button>
+                    {% csrf_token %}
                 </div>
             </form>
         </div>
