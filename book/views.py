@@ -250,7 +250,7 @@ def edit_review(request, slug):
             review = review_form.save(commit=False)
             review.object = book
             review.save()
-            messages.add_message(request, messages.SUCCESS, f'Your review for {book.title} has been saved!')
+            messages.add_message(request, messages.SUCCESS, f'Your review for {book.title} has been updated!')
         else:
             messages.add_message(request, messages.ERROR, 'There was an error updating your review')
 
@@ -283,7 +283,7 @@ def edit_rating(request, slug):
             rating = rating_form.save(commit=False)
             rating.object = book
             rating.save()
-            messages.add_message(request, messages.SUCCESS, f'Your rating for {book.title} has been saved!')
+            messages.add_message(request, messages.SUCCESS, f'Your rating for {book.title} has been updated!')
         else:
             messages.add_message(request, messages.ERROR, 'There was an error updating your rating')
 
