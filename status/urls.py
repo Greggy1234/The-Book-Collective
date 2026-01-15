@@ -9,4 +9,5 @@ urlpatterns = [
     path("add-to-currently-reading/<slug:slug>/", views.add_to_currently_reading, name="add_to_currently_reading"),
     path("add-to-read/<slug:slug>/", views.add_to_read, name="add_to_read"),
     path("add-to-dnf/<slug:slug>/", views.add_to_dnf, name="add_to_dnf"),
+    path("delete-status/<slug:slug>/", views.delete_status, name="delete_status"),
 ]

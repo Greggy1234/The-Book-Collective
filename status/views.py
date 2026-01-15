@@ -262,7 +262,7 @@ def add_to_dnf(request, username, slug):
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 
 
-def delete_status(request, slug):
+def delete_status(request, username, slug):
     """
     Deletes the user's status from that book
     irrespective of which status it was
@@ -275,8 +275,13 @@ def delete_status(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     status = get_object_or_404(Status, object=book, author=request.user)
-    if request == "POST":
+    status_name = status.get_status_display()
+    if request.method == "POST":
         if status.author == request.user:
             status.delete()
-    
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'{book.title} has been removed from {status_name}'
+            )
+
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
