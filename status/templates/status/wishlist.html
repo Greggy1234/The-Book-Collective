@@ -40,11 +40,11 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if books_wish_page_obj.has_previous %}
-            <li><a href="?page={{ books_wish_page_obj.previous_page_number }}">&laquo; PREV</a></li>
+            <li><a href="?page={{ books_wish_page_obj.previous_page_number }}" class="button-2 me-2">&laquo; Prev</a></li>
             {% endif %}
             <p>Page {{ books_wish_page_obj.number }} of {{ books_wish_page_obj.paginator.num_pages }} </p>
             {% if books_wish_page_obj.has_next %}
-            <li><a href="?page={{ books_wish_page_obj.next_page_number }}"> NEXT &raquo;</a></li>
+            <li><a href="?page={{ books_wish_page_obj.next_page_number }}" class="button-2 ms-2"> Next &raquo;</a></li>
             {% endif %}
         </ul>
     </nav>

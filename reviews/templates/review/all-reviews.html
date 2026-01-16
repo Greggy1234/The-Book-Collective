@@ -36,11 +36,11 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if review.has_previous %}
-            <li><a href="?page={{ review.previous_page_number }}">&laquo; PREV</a></li>
+            <li><a href="?page={{ review.previous_page_number }}" class="button-2 me-2">&laquo; Prev</a></li>
             {% endif %}
             <p>Page {{ review.number }} of {{ review.paginator.num_pages }} </p>
             {% if review.has_next %}
-            <li><a href="?page={{ review.next_page_number }}"> NEXT &raquo;</a></li>
+            <li><a href="?page={{ review.next_page_number }}" class="button-2 ms-2"> Next &raquo;</a></li>
             {% endif %}
         </ul>
     </nav>

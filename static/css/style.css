@@ -49,6 +49,7 @@ html {
 body {
     display: flex;
     flex-direction: column;
+    margin-top: 60px;
 }
 
 body,

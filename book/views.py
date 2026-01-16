@@ -40,8 +40,6 @@ class BookSearch(ListView):
     ``book_search``
         All published instances of :model:`book.Book` that match
         the query
-    ``paginate_by``
-        Number of posts per page.
 
     **Template**
     :template:`book/book_search.html`
@@ -49,7 +47,6 @@ class BookSearch(ListView):
     model = Book
     template_name = "book/search.html"
     context_object_name = "book_search"
-    paginate_by = 12
 
 # function get_queryset was taken from https://testdriven.io/blog/django-search/
     def get_queryset(self):
