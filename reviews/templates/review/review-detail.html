@@ -68,7 +68,7 @@
             <div class="col-12 col-sm-6 py-4">
                 <div class="book-info-image-container">
                     <a href="{% url 'book_detail' slug=review.object.slug %}">
-                        {% if 'placeholder' not in book.front_cover.url %}
+                        {% if 'placeholder' not in review.object.front_cover.url %}
                         <img class="card-img-top" src=" {{ review.object.front_cover.url }}"
                             alt="{{ review.object.title }}">
                         {% else %}

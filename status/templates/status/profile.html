@@ -9,7 +9,7 @@
 <!-- Stat boxes-->
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+        <div class="col-10 col-sm-3 text-center stat-box mx-4 mb-4">
             <h2 class="mt-2">Latest Read</h2>
             {% if book_status_read %}
             {% for book in book_status_read %}
@@ -36,7 +36,7 @@
             {% endfor %}
             {% endif %}
         </div>
-        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+        <div class="col-10 col-sm-3 text-center stat-box mx-4 mb-4">
             <h2 class="mt-2">Books Read</h2>
             {% if book_read_count %}
             <p class="p-stat-box mt-4">{{ book_read_count }}</p>
@@ -44,7 +44,7 @@
             <p class="p-stat-box mt-4">0</p>
             {% endif %}
         </div>
-        <div class="col-12 col-sm-3 text-center stat-box mx-4 mb-4">
+        <div class="col-10 col-sm-3 text-center stat-box mx-4 mb-4">
             <h2 class="mt-2">Avg. Rating</h2>
             {% if user_avg_rating %}
             <p class="p-stat-box mt-4">{{ user_avg_rating }}</p>
