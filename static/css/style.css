@@ -25,7 +25,9 @@
     font-size: 1.4rem;
 }
 
-
+.button:hover {    
+    background-color: rgba(197, 160, 89, 0.6);
+}
 
 .button-2 {
     padding: 2px 6px;
@@ -36,6 +38,9 @@
     font-size: 1rem;
 }
 
+.button-2:hover {
+    background-color: rgba(74, 14, 78, 0.3);
+}
 
 .delete-red {
     background-color: #CD5C5C !important;
@@ -49,7 +54,6 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
 }
 
 body,
@@ -57,6 +61,14 @@ body,
     background-color: #F2F0EF;
     font-family: var(--text-font);
     color: var(--main-text);
+}
+
+main {
+    padding-top: 60px;
+}
+
+.message-margin {
+    margin-top: 60px;
 }
 
 h1,

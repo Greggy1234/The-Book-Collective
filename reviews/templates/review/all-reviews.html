@@ -5,13 +5,13 @@
 <!-- all-reviews.html content starts here -->
 <div class="py-3 text-center">
     <h1>Reviews</h1>
-    <h2>See all the reviews from other user who look to read</h2>
+    <h2>See all the reviews from other users who look to read</h2>
 </div>
 <!-- All reviews, with 15 per page-->
 <div class="container">
     <div class="row">
         <div class="col-12 py-2">
-            <h3 class="pb-4 pt-2 text-center">Most Recent Reviews</h3>
+            <h3 class="pb-4 pt-2 text-center">All Reviews</h3>
             {% for review in review %}
             <div class="review-box mb-5 pt-4 px-3 text-start">
                 <h4 class="bold">Review of <a href="{% url 'book_detail' slug=review.object.slug %}"
