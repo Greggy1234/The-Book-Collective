@@ -146,6 +146,14 @@ hr {
     background-color: white;
 }
 
+.main-highlight-colour {
+    color: var(--main-highlight)!important;
+}
+
+.helptext a {
+    color: var(--main-highlight)!important;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
