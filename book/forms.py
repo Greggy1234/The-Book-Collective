@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib import messages
 from .models import Author, Book, Language, Genre
 
 
@@ -19,7 +20,7 @@ class AddBook(forms.ModelForm):
         fields = ("author", "title", "pages", "synopsis", "published", "genres", "language")
 
     def __init__(self, *args, **kwargs):
-        super(AddBook, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["author"].queryset = Author.objects.exclude(id=1).order_by("author")
         self.fields["genres"].queryset = Genre.objects.exclude(id=1).order_by("genre")
         self.fields["language"].queryset = Language.objects.exclude(id=1).order_by("lang")

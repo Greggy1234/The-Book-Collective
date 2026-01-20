@@ -137,8 +137,14 @@ def add_book(request):
                 request, messages.SUCCESS,
                 f'{book.title} has been saved. Thank you for adding more books to the site!'
             )
+            add_book_form = AddBook()
+        else:
+            messages.add_message(
+                request, messages.ERROR, 'Pleaase fill in all fields including at least one author and genre - synopsis is optional'
+                )
+    else:
+        add_book_form = AddBook()
 
-    add_book_form = AddBook()
     add_author_form = AddAuthor(prefix='modal')
 
     return render(
