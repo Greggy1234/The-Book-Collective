@@ -5,6 +5,7 @@
 <!-- books-wishlist.hmtl code starts here -->
 <div class="py-3 text-center">
     <h1>{{ user.username }}'s Wishlist</h1>
+    <h2>All the books you're excited to read!</h2>
 </div>
 <!-- List of books paginated -->
 <div class="container">
@@ -42,7 +43,7 @@
             {% if books_wish_page_obj.has_previous %}
             <li><a href="?page={{ books_wish_page_obj.previous_page_number }}" class="button-2 me-2">&laquo; Prev</a></li>
             {% endif %}
-            <p>Page {{ books_wish_page_obj.number }} of {{ books_wish_page_obj.paginator.num_pages }} </p>
+            <li>Page {{ books_wish_page_obj.number }} of {{ books_wish_page_obj.paginator.num_pages }} </li>
             {% if books_wish_page_obj.has_next %}
             <li><a href="?page={{ books_wish_page_obj.next_page_number }}" class="button-2 ms-2"> Next &raquo;</a></li>
             {% endif %}

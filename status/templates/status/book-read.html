@@ -5,6 +5,7 @@
 <!-- books-read.hmtl code starts here -->
 <div class="py-3 text-center">
     <h1>{{ user.username }}'s Read Books</h1>
+    <h2>Explore your completed reads</h2>
 </div>
 <!-- List of books paginated -->
 <div class="container">
@@ -42,7 +43,7 @@
             {% if books_read_page_obj.has_previous %}
             <li><a href="?page={{ books_read_page_obj.previous_page_number }}" class="button-2 me-2">&laquo; Prev</a></li>
             {% endif %}
-            <p>Page {{ books_read_page_obj.number }} of {{ books_read_page_obj.paginator.num_pages }} </p>
+            <li>Page {{ books_read_page_obj.number }} of {{ books_read_page_obj.paginator.num_pages }} </li>
             {% if books_read_page_obj.has_next %}
             <li><a href="?page={{ books_read_page_obj.next_page_number }}" class="button-2 ms-2"> Next &raquo;</a></li>
             {% endif %}

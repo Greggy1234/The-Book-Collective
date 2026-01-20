@@ -81,6 +81,8 @@ def review_detail(request, slug):
     **Context**
     ``add_rating_form``
         An instance of :form:`reviews.RatingForm`
+    ``add_rating_form_modal``
+        An instance of :form:`reviews.RatingForm` to be used in the modal
     ``add_review_form``
         An instance of :form:`reviews.ReviewForm`
     ``review``
@@ -96,12 +98,14 @@ def review_detail(request, slug):
 
     add_rating_form = RatingForm()
     add_review_form = ReviewForm()
+    add_rating_form_modal = RatingForm(prefix='modal')
 
     return render(
         request,
         "review/review-detail.html",
         {
             "add_rating_form": add_rating_form,
+            "add_rating_form_modal": add_rating_form_modal,
             "add_review_form": add_review_form,
             "review": review,
             "rating": rating

@@ -44,7 +44,7 @@
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}" class="button-2 me-2">&laquo; Prev</a></li>
             {% endif %}
-            <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} </p>
+            <li>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" class="button-2 ms-2"> Next &raquo;</a></li>
             {% endif %}

@@ -139,7 +139,7 @@ def add_book(request):
             )
 
     add_book_form = AddBook()
-    add_author_form = AddAuthor()
+    add_author_form = AddAuthor(prefix='modal')
 
     return render(
         request,
@@ -157,7 +157,7 @@ def add_author(request):
     the add book page
     """
     if request.method == "POST":
-        add_author_form = AddAuthor(data=request.POST)
+        add_author_form = AddAuthor(data=request.POST, prefix='modal')
         if add_author_form.is_valid():
             author = add_author_form.save()
             messages.add_message(
@@ -210,6 +210,17 @@ def add_rating(request, slug):
         if user_review:
             review_slug = user_review.slug
         rating_form = RatingForm(data=request.POST)
+        rating_form_modal = RatingForm(data=request.POST, prefix='modal')
+        if rating_form_modal.is_valid():
+            rating = rating_form_modal.save(commit=False)
+            rating.object = book
+            rating.author = request.user
+            rating.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                f'Thank you for your rating of {book.title}'
+            )
+
         if rating_form.is_valid():
             rating = rating_form.save(commit=False)
             rating.object = book
