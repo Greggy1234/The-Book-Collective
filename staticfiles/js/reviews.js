@@ -1,4 +1,4 @@
-// These functions are for the review_detail.html page
+// These functions are for the reviewapp
 // Button element event listeners
 // Once the DOM is loaded, the functions here can then follow
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,8 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
-})
+});
 
 /**
  * This is the function to change the displayed review text into a new form where a user can edit
