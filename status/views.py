@@ -163,7 +163,7 @@ def add_to_wishlist(request, username, slug):
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 
 
-def add_to_currently_reading(request, username,slug):
+def add_to_currently_reading(request, username, slug):
     """
     Adds a book to the users currently reading list
 

@@ -69,6 +69,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_UNIQUE_EMAIL = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
