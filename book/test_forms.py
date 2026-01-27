@@ -21,15 +21,18 @@ class TestAuthorForm(TestCase):
 
 class TestBookForm(TestCase):
     def setUp(self):
+        Author.objects.create(author="NO AUTHOR DETECTED")
         self.author = Author.objects.create(author="Jane Austen")
-        self.language = Language.objects.create(lang="English")
+        Genre.objects.create(genre="NO GENRE DETECTED")
         self.genre = Genre.objects.create(genre="Romance")
+        Language.objects.create(lang="NO LANGUAGE DETECTED")
+        self.language = Language.objects.create(lang="English")
 
     def test_form_is_valid(self):
         """
-        Test for all fields
-        For test to work, you have to comment out the def __init__
-        method in :form:`book.AddBook' as that stops validity of id=1
+        Test for all fields. As the form stops author and genre with id=1,
+        which is the safety option for those many to many fields, multiple
+        entries were required in set up to test the form
         """
         form = AddBook({
             'author': [self.author.id],
