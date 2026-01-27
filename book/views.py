@@ -209,6 +209,10 @@ def add_rating(request, slug):
         An instance of :model:`book.Book`
     ``rating_form``
         An instance of :form:`reviews.RatingForm`
+    ``rating_form_modal``
+        An instance of :form:`reviews.RatingForm` with a prefix of modal
+    ``user_review``
+        The review object of the request.user if it exists
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -254,6 +258,8 @@ def edit_review(request, slug):
         A single review related to the book
     ``review_form``
         An instance of :form:`reviews.ReviewForm`
+    ``review_slug``
+        The slug of the request.user review object
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -285,6 +291,8 @@ def edit_rating(request, slug):
         A single rating related to the book
     ``rating_form``
         An instance of :form:`reviews.RatingForm`
+    ``user_review``
+        The review object of the request.user if it exists
     """
     if request.method == "POST":
         book = get_object_or_404(Book, slug=slug)
@@ -337,6 +345,8 @@ def delete_rating(request, slug):
         An instance of :model:`book.Book`
     ``rating``
         A single rating related to the book
+    ``user_review``
+        The review object of the request.user if it exists
     """
     book = get_object_or_404(Book, slug=slug)
     rating = get_object_or_404(Rating, object=book, author=request.user)

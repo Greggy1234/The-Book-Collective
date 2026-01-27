@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.core.paginator import Paginator
-from .models import Review, Rating
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from .models import Review, Rating, Like
 from .forms import RatingForm, ReviewForm
 from status.models import Status
 
@@ -111,3 +113,63 @@ def review_detail(request, slug):
             "rating": rating
         }
     )
+
+
+def add_review_like(request, slug):
+    '''
+    Adds a users like for a specific review to :model:`reviews.Like`
+
+    **Context**
+    ``review``
+        An instance of :model:`review.Review`
+    ``book_slug``
+        The slug of the book connected to the review
+    '''
+    review = get_object_or_404(Review, slug=slug)
+    book_slug = review.object.slug
+    if request.method == "POST":
+        Like.objects.create(object=review, author=request.user)
+        messages.add_message(request, messages.SUCCESS, f"You've successfully liked {review}")
+    else:
+        messages.add_message(request, messages.ERROR, f'There was a problem liking {review}')
+
+    if '/books/' in request.META['HTTP_REFERER']:
+        return HttpResponseRedirect(reverse('book_detail', args=[book_slug]))
+    elif request.META['HTTP_REFERER'].endswith('reviews/'):
+        return HttpResponseRedirect(reverse('all_reviews'))
+    elif '/reviews/' in request.META['HTTP_REFERER']:
+        return HttpResponseRedirect(reverse('review_detail', args=[slug]))
+    else:
+        return HttpResponseRedirect(reverse('homepage'))
+
+
+def delete_review_like(request, slug):
+    '''
+    Deletes a users like for a specific review to :model:`reviews.Like`
+
+    **Context**
+    ``review``
+        An instance of :model:`review.Review`
+    ``book_slug``
+        The slug of the book connected to the review
+    ``like``
+        an instance of :mode:`reviews.Like`
+    '''
+    review = get_object_or_404(Review, slug=slug)
+    book_slug = review.object.slug
+    like = get_object_or_404(Like, object=review, author=request.user)
+    if request.method == "POST":
+        if like.author == request.user:
+            like.delete()
+            messages.add_message(request, messages.SUCCESS, "Your like has been removed")
+    else:
+        messages.add_message(request, messages.ERROR, 'There was a problem removing your like')
+
+    if '/books/' in request.META['HTTP_REFERER']:
+        return HttpResponseRedirect(reverse('book_detail', args=[book_slug]))
+    elif request.META['HTTP_REFERER'].endswith('reviews/'):
+        return HttpResponseRedirect(reverse('all_reviews'))
+    elif '/reviews/' in request.META['HTTP_REFERER']:
+        return HttpResponseRedirect(reverse('review_detail', args=[slug]))
+    else:
+        return HttpResponseRedirect(reverse('homepage'))
