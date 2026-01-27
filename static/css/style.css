@@ -186,6 +186,22 @@ nav form {
     font-size: 1.3rem;
 }
 
+/* Like styles */
+.fa-thumbs-up {
+    line-height: 1.5;
+    color: var(--button-links)
+}
+
+/* This is specifically for the review detail page as the thumbs up appears next to text and not a button */
+.thumbs-up-line-height {
+    line-height: 1;
+}
+
+.like-div button {
+    border: none;
+    padding: 0px;
+}
+
 /* Add book form styles */
 #id_author,
 #id_genres {

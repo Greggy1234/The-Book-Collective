@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- book-detail.hmtl code starts here -->
-<div class="py-3 text-center">
+<div class="py-2 text-center">
     <h1>{{ book.title }}</h1>
 </div>
 <!-- Book detail -->
@@ -109,13 +109,14 @@
 <div class="d-flex justify-content-center">
     <hr>
 </div>
-<!-- User's rating and review. Options to add if they don't have one-->
+<!-- Request.user's rating and review. Options to add if they don't have one-->
 <h2 class="text-center">Your review and rating</h2>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-8 mb-3">
             {% if user_review %}
-            <p id="pre-edit-review" data-full-review="{{ user_review.review }}">{{ user_review.review|truncatechars:100 }}</p>
+            <p id="pre-edit-review" data-full-review="{{ user_review.review }}">{{ user_review.review|truncatechars:100
+                }}</p>
             <div id="hidden-edit-review-form-book-page" class="d-none">
                 <form id="add_review_form" method="POST" action="{% url 'edit_review' slug=book.slug %}">
                     {{ add_review_form | crispy }}
@@ -174,8 +175,24 @@
                 <p class="p-small bold">No rating given</p>
                 {% endif %}
                 <p class="p-small">{{ review.created_on }}</p>
-                <div class="mb-3">
-                    <a href="{% url 'review_detail' slug=review.slug %}" class="button-2">Full review</a>
+                <div class="d-flex gap-2 like-div">
+                    <div class="mb-3">
+                        <a href="{% url 'review_detail' slug=review.slug %}" class="button-2">Full review</a>
+                    </div>
+                    {% if review.author != request.user %}
+                    {% if review.user_review_like %}
+                    <form method="POST" id="delete_review_like"
+                        action="{% url 'delete-review_like' slug=review.slug %}">
+                        <button type="submit"><i class="fa-solid fa-thumbs-up"></i></button>
+                        {% csrf_token %}
+                    </form>
+                    {% else %}
+                    <form method="POST" id="add_review_like" action="{% url 'add_review_like' slug=review.slug %}">
+                        <button type="submit"><i class="fa-regular fa-thumbs-up"></i></button>
+                        {% csrf_token %}
+                    </form>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
             {% empty %}

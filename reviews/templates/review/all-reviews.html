@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- all-reviews.html content starts here -->
-<div class="py-3 text-center">
+<div class="py-2 text-center">
     <h1>Reviews</h1>
     <h2>See all the reviews from other users who look to read</h2>
 </div>
@@ -25,8 +25,23 @@
                 <p class="p-small bold">No rating given</p>
                 {% endif %}
                 <p class="p-small">{{ review.created_on }}</p>
-                <div class="mb-3">
-                    <a href="{% url 'review_detail' slug=review.slug %}" class="button-2">Full review</a>
+                <div class="d-flex gap-2 like-div">
+                    <div class="mb-3">
+                        <a href="{% url 'review_detail' slug=review.slug %}" class="button-2">Full review</a>
+                    </div>
+                    {% if review.author != request.user %}
+                    {% if review.user_review_like %}
+                    <form method="POST" id="delete_review_like" action="{% url 'delete-review_like' slug=review.slug %}">
+                        <button type="submit"><i class="fa-solid fa-thumbs-up"></i></button>
+                        {% csrf_token %}
+                    </form>
+                    {% else %}
+                    <form method="POST" id="add_review_like" action="{% url 'add_review_like' slug=review.slug %}">
+                        <button type="submit"><i class="fa-regular fa-thumbs-up"></i></button>
+                        {% csrf_token %}
+                    </form>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

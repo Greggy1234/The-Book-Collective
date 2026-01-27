@@ -90,6 +90,8 @@ def book_detail(request, slug):
     """
     book = get_object_or_404(Book, slug=slug)
     review = book.book_review.all().order_by("-created_on")
+    for rev in review:
+        rev.user_review_like = rev.review_like.filter(author=request.user).first()
     rating = book.book_rating.all().order_by("-created_on")
     review_count = book.book_review.count()
     user_review = book.book_review.filter(object=book, author=request.user).first()

@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- index.html content starts here -->
-<div class="py-3 text-center">
+<div class="py-2 text-center">
     <h1>Welcome to The Book Collective</h1>
     <h2>Where book lovers can track and review their best <span class="bold">and worst </span>reads</h2>
 </div>
@@ -60,7 +60,8 @@
                             <div class="image-container pb-2">
                                 <a href="{% url 'book_detail' slug=book.object.slug %}">
                                     {% if 'placeholder' not in book.object.front_cover.url %}
-                                    <img class="card-img-top" src=" {{ book.object.front_cover.url }}" alt="{{ book.title }}">
+                                    <img class="card-img-top" src=" {{ book.object.front_cover.url }}"
+                                        alt="{{ book.title }}">
                                     {% else %}
                                     <img class="card-img-top" src="{% static 'images/placeholder.webp' %}"
                                         alt="placeholder image">
@@ -106,10 +107,26 @@
                 {% else %}
                 <p class="p-small bold">No rating given</p>
                 {% endif %}
-                <p class="p-small">{{ review.created_on }}</p>
-                <div class="mb-3">
-                    <a href="{% url 'review_detail' slug=review.slug %}" class="button-2">Full review</a>
+                <p class="p-small mb-2">{{ review.created_on }}</p>
+                <div class="d-flex gap-2 like-div">
+                    <div class="mb-3">
+                        <a href="{% url 'review_detail' slug=review.slug %}" class="button-2">Full review</a>
+                    </div>
+                    {% if review.author != request.user %}
+                    {% if review.user_review_like %}
+                    <form method="POST" id="delete_review_like" action="{% url 'delete-review_like' slug=review.slug %}">
+                        <button type="submit"><i class="fa-solid fa-thumbs-up"></i></button>
+                        {% csrf_token %}
+                    </form>
+                    {% else %}
+                    <form method="POST" id="add_review_like" action="{% url 'add_review_like' slug=review.slug %}">
+                        <button type="submit"><i class="fa-regular fa-thumbs-up"></i></button>
+                        {% csrf_token %}
+                    </form>
+                    {% endif %}
+                    {% endif %}
                 </div>
+
             </div>
             {% endfor %}
             <a href="{% url 'all_reviews' %}" class="button">See All Reviews</a>
