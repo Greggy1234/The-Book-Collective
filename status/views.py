@@ -191,7 +191,7 @@ def add_to_currently_reading(request, username, slug):
             messages.add_message(
                 request, messages.SUCCESS,
                 f'{book.title} added to currently reading'
-            )    
+            )
 
     return HttpResponseRedirect(reverse('book_detail', args=[slug]))
 

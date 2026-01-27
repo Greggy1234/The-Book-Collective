@@ -115,7 +115,7 @@
     <div class="row">
         <div class="col-12 col-md-8 mb-3">
             {% if user_review %}
-            <p id="pre-edit-review">{{ user_review.review|truncatechars:100 }}</p>
+            <p id="pre-edit-review" data-full-review="{{ user_review.review }}">{{ user_review.review|truncatechars:100 }}</p>
             <div id="hidden-edit-review-form-book-page" class="d-none">
                 <form id="add_review_form" method="POST" action="{% url 'edit_review' slug=book.slug %}">
                     {{ add_review_form | crispy }}

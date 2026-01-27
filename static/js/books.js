@@ -25,8 +25,7 @@ function editReview() {
     const reviewFormContainer = document.getElementById("hidden-edit-review-form-book-page");
     const deleteReviewButton = document.getElementById("delete-review-book-page-button");
     const reviewTextArea = document.getElementById("id_review");
-    const fullUserReviewContainer = document.getElementById("full-user-review");
-    let fullUserReview = fullUserReviewContainer.innerText;
+    let fullUserReview = preWrittenReview.getAttribute("data-full-review");
     editReviewButton.classList.add("d-none");
     preWrittenReview.classList.add("d-none");
     deleteReviewButton.classList.add("d-none");

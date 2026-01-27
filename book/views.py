@@ -140,7 +140,7 @@ def add_book(request):
             add_book_form = AddBook()
         else:
             messages.add_message(
-                request, messages.ERROR, 'Pleaase fill in all fields including at least one author and genre - synopsis is optional'
+                request, messages.ERROR, 'Please fill in all fields including at least one author and genre - synopsis is optional'
                 )
     else:
         add_book_form = AddBook()
