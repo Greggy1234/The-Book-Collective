@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- reviews-details.html code starts here -->
-<div class="py-2 text-center">
+<div class="pb-2 text-center">
     <h1>Review of {{ review.object.title }}</h1>
     <h2>Written by <a href="{% url 'profile_page' username=review.author.username %}" class="header-link-text">
             {{ review.author }}</a></h2>
