@@ -30,7 +30,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com',]
 
@@ -174,11 +174,11 @@ if DEBUG:
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.resend.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
+    EMAIL_PORT = 465
+    EMAIL_USE_SSL = True
     EMAIL_HOST_USER = 'resend'
     EMAIL_HOST_PASSWORD = RESEND_API_KEY
 
-DEFAULT_FROM_EMAIL = 'book-collective@resend.dev'
+DEFAULT_FROM_EMAIL = 'Book-Collective@resend.dev'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 EMAIL_SUBJECT_PREFIX = ''
