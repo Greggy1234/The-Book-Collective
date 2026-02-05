@@ -9,7 +9,7 @@ def features_page(request):
     """
     Returns all objects in the :model:`features.FutureFeatures`
     as long as they are not classed as 'not on radar'.
-    Shows the future features sugestion form
+    Shows the future features suggestion form
 
     **Context**
     ``features``

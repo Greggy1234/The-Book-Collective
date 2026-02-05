@@ -33,7 +33,7 @@ def profile_page(request, username):
     ``user``
         An instance of :model:`auth.User`
     ``avg_rating``
-        The average rating of all books from the user takend from
+        The average rating of all books from the user taken from
         :model:`reviews.Rating`
 
     **Template**

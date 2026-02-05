@@ -319,7 +319,7 @@ def edit_rating(request, slug):
 
 def delete_review(request, slug):
     """
-    Delete an idividual review
+    Delete an individual review
 
     **Context**
     ``book``
@@ -340,7 +340,7 @@ def delete_review(request, slug):
 
 def delete_rating(request, slug):
     """
-    Delete an idividual rating
+    Delete an individual rating
 
     **Context**
     ``book``
